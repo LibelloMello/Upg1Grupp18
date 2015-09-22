@@ -15,9 +15,9 @@ public class CourseAccess {
 	static ResultSet rs = null;
 	
 	public static void getCourse(String ccode){
-		Connection con = null;
-		PreparedStatement preState = null;
-		ResultSet rs = null;
+//		Connection con = null;
+//		PreparedStatement preState = null;
+//		ResultSet rs = null;
 		
 		try {
 			con = DbUtil.getConn();
