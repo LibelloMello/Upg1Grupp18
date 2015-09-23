@@ -12,10 +12,10 @@ public class ShareAccess {
 	static ResultSet rs = null;
 
 	public static void registerStudentOnCourse(String spnr, String ccode) {
-		int sum;
+		
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement("INSERT INTO Studying (spnr, ccode) VALUES (?, ?)");
+			preState = con.prepareStatement(DbUtil.registerStudentOnCourse());
 			preState.setString(1, spnr);
 			preState.setString(2, ccode);
 			preState.executeUpdate();
@@ -55,10 +55,9 @@ public class ShareAccess {
 	}
 
 	public static void deleteFromStudying(String spnr, String ccode) {
-		int sum;
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement("DELETE FROM Studying WHERE spnr=? AND ccode=?");
+			preState = con.prepareStatement(DbUtil.deleteStudying());
 
 			preState.setString(1, spnr);
 			preState.setString(2, ccode);
@@ -93,12 +92,12 @@ public class ShareAccess {
 	public static void getFinishedStudents(String ccode){
 	
 	Connection con = null;
-//	PreparedStatement preState = null;
-//	ResultSet rs = null;
+	PreparedStatement preState = null;
+	ResultSet rs = null;
 	
 	try {
 		con = DbUtil.getConn();
-		preState = con.prepareStatement("SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studied s ON c.ccode=s.ccode WHERE c.ccode=?");
+		preState = con.prepareStatement(DbUtil.getFinishedStudents());
 		preState.setString(1, ccode);
 		rs = preState.executeQuery();
 	
@@ -143,7 +142,7 @@ public class ShareAccess {
 		
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement("SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studying s ON c.ccode=s.ccode WHERE c.ccode=?");
+			preState = con.prepareStatement(DbUtil.getUnfinishedStudents());
 			preState.setString(1, ccode);
 			rs = preState.executeQuery();
 		

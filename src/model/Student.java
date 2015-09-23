@@ -24,10 +24,5 @@ public class Student {
 	public void setsName(String sName) {
 		this.sName = sName;
 	}
-	
-	 
-
-
-	
 
 }

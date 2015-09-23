@@ -32,6 +32,29 @@ public class DbUtil {
 		return "DELETE FROM Studying WHERE spnr=? DELETE FROM Student WHERE spnr=?";
 	}
 	
+	public static String registerStudent() {
+		return "INSERT INTO Student (spnr, sname, saddress) VALUES (?, ?, ?)";
+	}
+	public static String registerStudentOnCourse() {
+		return 	"INSERT INTO Studying (spnr, ccode) VALUES (?, ?)";
+	}
+
+	public static String getFinishedStudents() {
+		return "SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studied s ON c.ccode=s.ccode WHERE c.ccode=?";
+	}
+	
+	public static String getUnfinishedStudents() {
+		return "SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studying s ON c.ccode=s.ccode WHERE c.ccode=?";
+	}
+	
+	public static String deleteStudying () {
+		return "DELETE FROM Studying WHERE spnr=? AND ccode=?";
+	}
+	
+	public static String getCourse() {
+		return "SELECT * FROM Course WHERE ccode=?";
+	}
+	
 	
 
 	public static Course mapCourse(ResultSet rs) throws SQLException {

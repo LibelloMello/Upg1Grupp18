@@ -21,7 +21,7 @@ public class CourseAccess {
 
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement("SELECT * FROM Course WHERE ccode=?");
+			preState = con.prepareStatement(DbUtil.getCourse());
 			preState.setString(1, ccode);
 			rs = preState.executeQuery();
 

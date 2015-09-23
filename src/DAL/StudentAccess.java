@@ -97,47 +97,6 @@ public class StudentAccess {
 		}
 	}
 
-	// public static void getAllStudents(){
-	// Connection con = null;
-	// PreparedStatement preState = null;
-	// ResultSet rs = null;
-	//
-	// try {
-	// con = DbUtil.getConn();
-	// preState = con.prepareStatement("SELECT * FROM Student");
-	// rs = preState.executeQuery();
-	//
-	// while (rs.next()) {
-	// System.out.print(rs.getString("spnr"));
-	// System.out.println(rs.getString(2));
-	// }
-	// }
-	// catch(SQLException e){
-	// e.printStackTrace();
-	// }
-	// finally {
-	//
-	// if (rs != null){
-	// try {
-	// rs.close();
-	// }
-	// catch(SQLException e) {}
-	// }
-	//
-	// if ( preState != null){
-	// try{
-	// preState.close();
-	// }catch(SQLException e){}
-	// }
-	//
-	// if ( con != null){
-	// try{
-	// preState.close();
-	// }catch(SQLException e){}
-	// }
-	// }
-	//
-	// }
 	public static void registerStudent(String spnr, String sname, String saddress) {
 		Connection con = null;
 		PreparedStatement preState = null;
@@ -145,7 +104,7 @@ public class StudentAccess {
 
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement("INSERT INTO Student (spnr, sname, saddress) VALUES (?, ?, ?)");
+			preState = con.prepareStatement(DbUtil.registerStudent());
 
 			preState.setString(1, spnr);
 			preState.setString(2, sname);
