@@ -20,7 +20,7 @@ public class ShareAccess {
 		 Connection con = null;
 		 PreparedStatement preState = null;
 		 ResultSet rs = null;
-		 int g = 0;
+		 int k = 0;
 		
 		 try {
 			 con = DbUtil.getConn();
@@ -29,9 +29,8 @@ public class ShareAccess {
 				rs = preState.executeQuery();
 				
 				while (rs.next()) {
-					String str = rs.getString(1);
-					g = Integer.parseInt(str);
-
+					k = rs.getInt(1);
+//					g = Integer.parseInt(k);
 				}
 				
 				System.out.print("Vafan");
@@ -39,7 +38,7 @@ public class ShareAccess {
 				e.printStackTrace();
 		 }
 				
-				if (g > 46) {
+				if (k > 46) {
 					try {
 						con = DbUtil.getConn();
 						preState = con.prepareStatement(DbUtil.registerStudentOnCourse());
@@ -54,7 +53,7 @@ public class ShareAccess {
 					
 		 } else {
 			 try {
-				 System.out.print("Sorry mannen");
+				 System.out.print("Sorry mannen" + k);
 			 } finally {
 			if (rs != null) {
 				try {
@@ -260,13 +259,12 @@ public class ShareAccess {
 			
 
 			while (rs.next()) {
-				String str = rs.getString(1);
-				g = Integer.parseInt(str);
+				g = rs.getInt(1);
+
 
 			}
 			String poop = Integer.toString(g);
-
-			return poop;
+		return poop;
 
 		} catch (SQLException e) {
 			throw new StudentExceptions("Hittade inga resultat", e);

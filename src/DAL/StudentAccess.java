@@ -20,7 +20,7 @@ public class StudentAccess {
 		
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement(DbUtil.getStudent(sPnr));
+			preState = con.prepareStatement(DbUtil.getStudent());
 			preState.setString(1, sPnr);
 			rs = preState.executeQuery();
 			
@@ -139,15 +139,19 @@ public class StudentAccess {
 		}
 	}
 
-	public static void deleteStudent(String spnr) {
+	public static void deleteStudent(String spnr) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 		try {
+			Student student = StudentAccess.getStudent(spnr);
+			if(student == null) {
+				return;
+			}
+			
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.deleteStudent());
 			preState.setString(1, spnr);
-			preState.setString(2, spnr);
 			preState.executeUpdate();
 
 		} catch (SQLException e) {

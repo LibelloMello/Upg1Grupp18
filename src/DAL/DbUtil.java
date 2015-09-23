@@ -27,12 +27,12 @@ public class DbUtil {
 		return "SELECT * FROM Student";
 	}
 	
-	public static String getStudent(String sPnr) {
+	public static String getStudent() {
 		return "SELECT * FROM STUDENT WHERE spnr = ?";
 	}
 	
 	public static String deleteStudent() {
-		return "DELETE FROM Studying WHERE spnr=? DELETE FROM Student WHERE spnr=?";
+		return "DELETE FROM Student WHERE spnr=?";
 	}
 	
 	public static String registerStudent() {
@@ -56,6 +56,10 @@ public class DbUtil {
 	
 	public static String getCourse() {
 		return "SELECT * FROM Course WHERE ccode=?";
+	}
+	
+	public static String deleteCourse() {
+	return "DELETE FROM Course WHERE ccode=?";
 	}
 	
 	public static String registerStudied() {

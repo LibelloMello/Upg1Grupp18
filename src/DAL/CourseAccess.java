@@ -15,25 +15,25 @@ public class CourseAccess {
 	static Connection con = null;
 	static PreparedStatement preState = null;
 	static ResultSet rs = null;
-	
+
 	public static Course getCourse(String cCode) throws CourseExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.getCourse());
 			preState.setString(1, cCode);
 			rs = preState.executeQuery();
-			
+
 			if (rs.next())
 				return DbUtil.mapCourse(rs);
-			
+
 			return null;
-			
-		} catch (SQLException e) { 
-		throw new CourseExceptions("Hittade ingen kurs", e);
+
+		} catch (SQLException e) {
+			throw new CourseExceptions("Hittade ingen kurs", e);
 
 		} finally {
 
@@ -60,12 +60,11 @@ public class CourseAccess {
 		}
 	}
 
-	
 	public static List<Course> getAllCourses() throws CourseExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.getAllCourses());
@@ -73,7 +72,7 @@ public class CourseAccess {
 
 			return DbUtil.mapCourses(rs);
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new CourseExceptions("Hittade inga kurser", e);
 
 		} finally {
@@ -101,24 +100,25 @@ public class CourseAccess {
 		}
 	}
 
-	public static void deleteCourse(String ccode) {
+	public static void deleteCourse(String ccode) throws CourseExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement("DELETE FROM Studying WHERE ccode=? DELETE FROM Course WHERE ccode=?");
+			preState = con.prepareStatement(DbUtil.deleteCourse());
 			preState.setString(1, ccode);
-			preState.setString(2, ccode);
 			preState.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CourseExceptions("Hittade ingen kurs", e);
+			
 		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
+					
 				}
 			}
 
