@@ -1,27 +1,28 @@
 package model;
 
 public class Studied {
-	private String spnr;
-	private String ccode;
-	private String grade;
+	private String sPnr;
+	private String cCode;
+	private String sGrade;
 	
-	public String getSpnr() {
-		return spnr;
+	public String getsPnr() {
+		return sPnr;
 	}
-	public void setSpnr(String spnr) {
-		this.spnr = spnr;
+	public void setsPnr(String sPnr) {
+		this.sPnr = sPnr;
 	}
-	public String getCcode() {
-		return ccode;
+	
+	public String getcCode() {
+		return cCode;
 	}
-	public void setCcode(String ccode) {
-		this.ccode = ccode;
+	public void setCcode(String cCode) {
+		this.cCode = cCode;
 	}
-	public String getGrade() {
-		return grade;
+	public String getsGrade() {
+		return sGrade;
 	}
-	public void setGrade(String grade) {
-		this.grade = grade;
+	public void setsGrade(String sGrade) {
+		this.sGrade = sGrade;
 	}
 	
 	

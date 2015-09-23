@@ -12,7 +12,7 @@ public class ShareAccess {
 	static ResultSet rs = null;
 
 	public static void registerStudentOnCourse(String spnr, String ccode) {
-		
+
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.registerStudentOnCourse());
@@ -26,6 +26,47 @@ public class ShareAccess {
 			// rs = preState.executeQuery();
 			// if(rs > 45)
 			// Detta är för betyg A-B, fråga amanuens
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (preState != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (con != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+	}
+
+	public static void registerStudied(String sPnr, String cCode, String sGrade) {
+
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(DbUtil.registerStudied());
+			preState.setString(1, sPnr);
+			preState.setString(2, cCode);
+			preState.setString(3, sGrade);
+			preState.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,94 +130,95 @@ public class ShareAccess {
 		}
 
 	}
-	public static void getFinishedStudents(String ccode){
-	
-	Connection con = null;
-	PreparedStatement preState = null;
-	ResultSet rs = null;
-	
-	try {
-		con = DbUtil.getConn();
-		preState = con.prepareStatement(DbUtil.getFinishedStudents());
-		preState.setString(1, ccode);
-		rs = preState.executeQuery();
-	
-		while (rs.next()) {
 
-			System.out.println(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
-		}
-		
-	}
-	catch(SQLException e){
-		e.printStackTrace();
-	}
-	finally {			
-		
-		if (rs != null){
-			try {
-				rs.close();	
-			}
-			catch(SQLException e) {}
-		}
-		
-		if ( preState != null){
-			try{
-				preState.close();
-			}catch(SQLException e){}
-		}
-		
-		if ( con != null){
-			try{
-				preState.close();
-			}catch(SQLException e){}
-		}		
-	}
-	
-	}
-	
-	public static void getUnfinishedStudents(String ccode){
-		
+	public static void getFinishedStudents(String ccode) {
+
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-		
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(DbUtil.getFinishedStudents());
+			preState.setString(1, ccode);
+			rs = preState.executeQuery();
+
+			while (rs.next()) {
+
+				System.out.println(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (preState != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (con != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+	}
+
+	public static void getUnfinishedStudents(String ccode) {
+
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.getUnfinishedStudents());
 			preState.setString(1, ccode);
 			rs = preState.executeQuery();
-		
+
 			while (rs.next()) {
 
 				System.out.println(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
 			}
-			
-		}
-		catch(SQLException e){
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {			
-			
-			if (rs != null){
+		} finally {
+
+			if (rs != null) {
 				try {
-					rs.close();	
+					rs.close();
+				} catch (SQLException e) {
 				}
-				catch(SQLException e) {}
 			}
-			
-			if ( preState != null){
-				try{
+
+			if (preState != null) {
+				try {
 					preState.close();
-				}catch(SQLException e){}
+				} catch (SQLException e) {
+				}
 			}
-			
-			if ( con != null){
-				try{
+
+			if (con != null) {
+				try {
 					preState.close();
-				}catch(SQLException e){}
-			}		
+				} catch (SQLException e) {
+				}
+			}
 		}
-		
-}
+
+	}
 
 }

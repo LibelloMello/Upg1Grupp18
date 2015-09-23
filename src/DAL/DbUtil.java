@@ -55,7 +55,9 @@ public class DbUtil {
 		return "SELECT * FROM Course WHERE ccode=?";
 	}
 	
-	
+	public static String registerStudied() {
+		return "INSERT INTO Studied (spnr, ccode, grade) VALUES (?, ?, ?)";
+	}
 
 	public static Course mapCourse(ResultSet rs) throws SQLException {
 		Course course = new Course();
