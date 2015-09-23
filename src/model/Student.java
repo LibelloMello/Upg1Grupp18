@@ -2,27 +2,27 @@ package model;
 
 public class Student {
 	
-	private String address;
-	private String spnr;
-	private String name;
+	private String sAddress;
+	private String sPnr;
+	private String sName;
 	
-	public String getAddress() {
-		return address;
+	public String getsAddress() {
+		return sAddress;
 	}
-	public void setAdress(String address) {
-		this.address = address;
+	public void setsAddress(String sAddress) {
+		this.sAddress = sAddress;
 	}
 	public String getSpnr() {
-		return spnr;
+		return sPnr;
 	}
-	public void setSpnr(String spnr) {
-		this.spnr = spnr;
+	public void setsPnr(String sPnr) {
+		this.sPnr = sPnr;
 	}
-	public String getName() {
-		return name;
+	public String getsName() {
+		return sName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setsName(String sName) {
+		this.sName = sName;
 	}
 	
 	 

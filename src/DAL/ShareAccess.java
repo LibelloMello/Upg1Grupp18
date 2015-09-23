@@ -132,7 +132,52 @@ public class ShareAccess {
 			}catch(SQLException e){}
 		}		
 	}
+	
+	}
+	
+	public static void getUnfinishedStudents(String ccode){
+		
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement("SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studying s ON c.ccode=s.ccode WHERE c.ccode=?");
+			preState.setString(1, ccode);
+			rs = preState.executeQuery();
+		
+			while (rs.next()) {
 
+				System.out.println(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
+			}
+			
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		finally {			
+			
+			if (rs != null){
+				try {
+					rs.close();	
+				}
+				catch(SQLException e) {}
+			}
+			
+			if ( preState != null){
+				try{
+					preState.close();
+				}catch(SQLException e){}
+			}
+			
+			if ( con != null){
+				try{
+					preState.close();
+				}catch(SQLException e){}
+			}		
+		}
+		
 }
 
 }

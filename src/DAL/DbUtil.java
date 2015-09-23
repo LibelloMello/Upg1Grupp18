@@ -19,6 +19,20 @@ public class DbUtil {
 	public static String getAllCourses() {
 		return "SELECT * " + "FROM Course ";
 	}
+	
+	public static String getAllStudents() {
+		return "SELECT * FROM Student";
+	}
+	
+	public static String getStudent() {
+		return "SELECT * FROM STUDENT WHERE spnr = ?";
+	}
+	
+	public static String deleteStudent() {
+		return "DELETE FROM Studying WHERE spnr=? DELETE FROM Student WHERE spnr=?";
+	}
+	
+	
 
 	public static Course mapCourse(ResultSet rs) throws SQLException {
 		Course course = new Course();
@@ -38,6 +52,26 @@ public class DbUtil {
 			cList.add(newCourse);
 		}
 		return cList;
+	}
+	
+	public static Student mapStudent(ResultSet rs) throws SQLException {
+		Student student = new Student();
+		student.setsPnr(rs.getString("spnr"));
+		student.setsName(rs.getString("sname"));
+		student.setsAddress(rs.getString("saddress"));
+
+		return student;
+
+	}
+	
+	public static List<Student> mapStudents(ResultSet rs) throws SQLException {
+		List<Student> sList = new ArrayList<Student>();
+
+		while (rs.next()) {
+			Student newStudent = mapStudent(rs);
+			sList.add(newStudent);
+		}
+		return sList;
 	}
 
 }
