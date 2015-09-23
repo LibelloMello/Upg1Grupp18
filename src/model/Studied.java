@@ -15,7 +15,7 @@ public class Studied {
 	public String getcCode() {
 		return cCode;
 	}
-	public void setCcode(String cCode) {
+	public void setcCode(String cCode) {
 		this.cCode = cCode;
 	}
 	public String getsGrade() {

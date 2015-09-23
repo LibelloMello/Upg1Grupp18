@@ -2,27 +2,27 @@ package model;
 
 public class Studying {
 	
-	private String spnr;
-	private String ccode;
-	private String credits;
+	private String sPnr;
+	private String cCode;
+	private String cCredits;
 	
 	public String getSpnr() {
-		return spnr;
+		return sPnr;
 	}
-	public void setSpnr(String spnr) {
-		this.spnr = spnr;
+	public void setsPnr(String sPnr) {
+		this.sPnr = sPnr;
 	}
-	public String getCcode() {
-		return ccode;
+	public String getcCode() {
+		return cCode;
 	}
-	public void setCcode(String ccode) {
-		this.ccode = ccode;
+	public void setcCode(String cCode) {
+		this.cCode = cCode;
 	}
 	public String getCredits() {
-		return credits;
+		return cCredits;
 	}
-	public void setCredits(String credits) {
-		this.credits = credits;
+	public void setcCredits(String cCredits) {
+		this.cCredits = cCredits;
 	}
 	
 	

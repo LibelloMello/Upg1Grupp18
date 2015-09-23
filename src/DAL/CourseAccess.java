@@ -7,31 +7,34 @@ import java.sql.SQLException;
 import java.util.List;
 
 import exceptions.CourseExceptions;
+import exceptions.StudentExceptions;
 import model.Course;
+import model.Student;
 
 public class CourseAccess {
 	static Connection con = null;
 	static PreparedStatement preState = null;
 	static ResultSet rs = null;
-
-	public static void getCourse(String ccode) {
-		// Connection con = null;
-		// PreparedStatement preState = null;
-		// ResultSet rs = null;
-
+	
+	public static Course getCourse(String cCode) throws CourseExceptions {
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+		
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.getCourse());
-			preState.setString(1, ccode);
+			preState.setString(1, cCode);
 			rs = preState.executeQuery();
+			
+			if (rs.next())
+				return DbUtil.mapCourse(rs);
+			
+			return null;
+			
+		} catch (SQLException e) { 
+		throw new CourseExceptions("Hittade ingen kurs", e);
 
-			while (rs.next()) {
-
-				System.out.print(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 
 			if (rs != null) {
@@ -55,9 +58,9 @@ public class CourseAccess {
 				}
 			}
 		}
-
 	}
 
+	
 	public static List<Course> getAllCourses() throws CourseExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;

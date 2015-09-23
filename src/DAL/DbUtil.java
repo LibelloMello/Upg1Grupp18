@@ -3,6 +3,9 @@ package DAL;
 import java.util.*;
 import model.Course;
 import model.Student;
+import model.Studied;
+import model.Studying;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +27,7 @@ public class DbUtil {
 		return "SELECT * FROM Student";
 	}
 	
-	public static String getStudent() {
+	public static String getStudent(String sPnr) {
 		return "SELECT * FROM STUDENT WHERE spnr = ?";
 	}
 	
@@ -39,12 +42,12 @@ public class DbUtil {
 		return 	"INSERT INTO Studying (spnr, ccode) VALUES (?, ?)";
 	}
 
-	public static String getFinishedStudents() {
+	public static String getFinishedStudents(String cCode) {
 		return "SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studied s ON c.ccode=s.ccode WHERE c.ccode=?";
 	}
 	
-	public static String getUnfinishedStudents() {
-		return "SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studying s ON c.ccode=s.ccode WHERE c.ccode=?";
+	public static String getUnfinishedStudents(String cCode) {
+		return "SELECT s.spnr, c.ccode FROM Course c JOIN Studying s ON c.ccode=s.ccode WHERE c.ccode = ?";
 	}
 	
 	public static String deleteStudying () {
@@ -97,6 +100,44 @@ public class DbUtil {
 			sList.add(newStudent);
 		}
 		return sList;
+	}
+	
+	public static Studied mapStudied(ResultSet rs) throws SQLException {
+		Studied studied = new Studied();
+		studied.setsPnr(rs.getString("spnr"));
+		studied.setcCode(rs.getString("ccode"));
+		studied.setsGrade(rs.getString("grade"));
+
+		return studied;
+
+	}
+
+	public static List<Studied> mapStudieds(ResultSet rs) throws SQLException {
+		List<Studied> studiedList = new ArrayList<Studied>();
+
+		while (rs.next()) {
+			Studied newStudied = mapStudied(rs);
+			studiedList.add(newStudied);
+		}
+		return studiedList;
+	}
+	public static Studying mapStudying(ResultSet rs) throws SQLException {
+		Studying studying = new Studying();
+		studying.setsPnr(rs.getString("spnr"));
+		studying.setcCode(rs.getString("ccode"));
+
+		return studying;
+
+	}
+
+	public static List<Studying> mapStudyings(ResultSet rs) throws SQLException {
+		List<Studying> studyingList = new ArrayList<Studying>();
+
+		while (rs.next()) {
+			Studying newStudying = mapStudying(rs);
+			studyingList.add(newStudying);
+		}
+		return studyingList;
 	}
 
 }

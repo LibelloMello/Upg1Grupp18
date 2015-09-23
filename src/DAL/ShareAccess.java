@@ -4,6 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
+import exceptions.StudentExceptions;
+import model.Student;
+import model.Studied;
+import model.Studying;
 
 public class ShareAccess {
 
@@ -131,25 +137,22 @@ public class ShareAccess {
 
 	}
 
-	public static void getFinishedStudents(String ccode) {
-
+	public static List<Studied> getAllStudied(String cCode) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement(DbUtil.getFinishedStudents());
-			preState.setString(1, ccode);
+			preState = con.prepareStatement(DbUtil.getFinishedStudents(cCode));
+			preState.setString(1, cCode);
 			rs = preState.executeQuery();
 
-			while (rs.next()) {
-
-				System.out.println(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
-			}
+			return DbUtil.mapStudieds(rs);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new StudentExceptions("Hittade inga resultat", e);
+
 		} finally {
 
 			if (rs != null) {
@@ -173,28 +176,24 @@ public class ShareAccess {
 				}
 			}
 		}
-
 	}
 
-	public static void getUnfinishedStudents(String ccode) {
-
+	public static List<Studying> getAllStudying(String cCode) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement(DbUtil.getUnfinishedStudents());
-			preState.setString(1, ccode);
+			preState = con.prepareStatement(DbUtil.getUnfinishedStudents(cCode));
+			preState.setString(1, cCode);
 			rs = preState.executeQuery();
 
-			while (rs.next()) {
-
-				System.out.println(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
-			}
+			return DbUtil.mapStudyings(rs);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new StudentExceptions("Hittade inga studenter", e);
+
 		} finally {
 
 			if (rs != null) {
@@ -218,7 +217,6 @@ public class ShareAccess {
 				}
 			}
 		}
-
 	}
 
 }

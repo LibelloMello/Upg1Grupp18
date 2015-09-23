@@ -12,25 +12,26 @@ import model.Course;
 import model.Student;
 
 public class StudentAccess {
-
-	public static void getStudent(String spnr) {
+	
+	public static Student getStudent(String sPnr) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-
+		
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement(DbUtil.getStudent());
-			preState.setString(1, spnr);
+			preState = con.prepareStatement(DbUtil.getStudent(sPnr));
+			preState.setString(1, sPnr);
 			rs = preState.executeQuery();
+			
+			if (rs.next())
+				return DbUtil.mapStudent(rs);
+			
+			return null;
+			
+		} catch (SQLException e) { 
+		throw new StudentExceptions("Hittade ingen student", e);
 
-			while (rs.next()) {
-
-				System.out.print(rs.getString(1) + ", " + rs.getString(3) + ", " + rs.getString(2));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 
 			if (rs != null) {
@@ -54,8 +55,9 @@ public class StudentAccess {
 				}
 			}
 		}
-
 	}
+
+	
 
 	public static List<Student> getAllStudents() throws StudentExceptions {
 		Connection con = null;
