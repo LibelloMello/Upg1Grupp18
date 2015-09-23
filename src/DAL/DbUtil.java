@@ -65,13 +65,8 @@ public class DbUtil {
 	public static String getPercentA(String cCode) {
 		return "Select (Count(grade)* 100 / (Select Count(*) From Studied)) as Score From Studied s WHERE s.grade='A' AND s.ccode=? Group By grade ";
 	}
-	public static String restraint45 (String sPnr) {
-		return "(SELECT sum(credits)" 
-				+ "FROM Course"
-				+ "WHERE ccode IN" 
-					+"(SELECT ccode"
-					+"FROM Studying"
-					+"WHERE spnr = ?))";
+	public static String checkIfFortyFive (String sPnr) {
+		return "SELECT sum(credits) FROM Course WHERE ccode IN (SELECT ccode FROM Studying WHERE spnr = ?)";
 	}
 
 	public static Course mapCourse(ResultSet rs) throws SQLException {

@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import exceptions.StudentExceptions;
 import model.Student;
 import model.Studied;
@@ -17,31 +16,53 @@ public class ShareAccess {
 	static PreparedStatement preState = null;
 	static ResultSet rs = null;
 
-	public static void registerStudentOnCourse(String spnr, String ccode) {
+	public static void registerStudentOnCourse(String sPnr, String cCode) throws StudentExceptions {
+		 Connection con = null;
+		 PreparedStatement preState = null;
+		 ResultSet rs = null;
+		 int g = 0;
+		
+		 try {
+			 con = DbUtil.getConn();
+				preState = con.prepareStatement(ShareAccess.getTotalCredits(sPnr));
+				preState.setString(1, sPnr); 
+				rs = preState.executeQuery();
+				
+				while (rs.next()) {
+					String str = rs.getString(1);
+					g = Integer.parseInt(str);
 
-		try {
-			con = DbUtil.getConn();
-			preState = con.prepareStatement(DbUtil.registerStudentOnCourse());
-			preState.setString(1, spnr);
-			preState.setString(2, ccode);
-			preState.executeUpdate();
+				}
+				
+				System.out.print("Vafan");
+		 }  catch (SQLException e) {
+				e.printStackTrace();
+		 }
+				
+				if (g > 46) {
+					try {
+						con = DbUtil.getConn();
+						preState = con.prepareStatement(DbUtil.registerStudentOnCourse());
+						preState.setString(1, sPnr);
+						preState.setString(2, cCode);
+						preState.executeUpdate();
 
-			// preState = con.prepareStatement("SELECT s.spnr, sum(c.credits) AS
-			// totalcredits FROM Studying s JOIN Course c ON s.ccode = c.ccode
-			// group by spnr");
-			// rs = preState.executeQuery();
-			// if(rs > 45)
-			// Detta är för betyg A-B, fråga amanuens
+					} catch (SQLException e) {
+						e.printStackTrace();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
+				}
+					
+		 } else {
+			 try {
+				 System.out.print("Sorry mannen");
+			 } finally {
 			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
 				}
 			}
+		 
 
 			if (preState != null) {
 				try {
@@ -57,6 +78,7 @@ public class ShareAccess {
 				}
 			}
 		}
+		 }
 
 	}
 
@@ -193,9 +215,7 @@ public class ShareAccess {
 			while (rs.next()) {
 				String str = rs.getString(1);
 				g = Integer.parseInt(str);
-
 			}
-
 			return g;
 
 		} catch (SQLException e) {
@@ -226,25 +246,27 @@ public class ShareAccess {
 		}
 	}
 	
-	public static int getTotalCredits(String sPnr) throws StudentExceptions {
+	public static String getTotalCredits(String sPnr) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement(DbUtil.restraint45(sPnr));
+			preState = con.prepareStatement(DbUtil.checkIfFortyFive(sPnr));
 			preState.setString(1, sPnr);
 			rs = preState.executeQuery();
 			int g = 0;
+			
 
 			while (rs.next()) {
 				String str = rs.getString(1);
 				g = Integer.parseInt(str);
 
 			}
+			String poop = Integer.toString(g);
 
-			return g;
+			return poop;
 
 		} catch (SQLException e) {
 			throw new StudentExceptions("Hittade inga resultat", e);
