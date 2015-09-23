@@ -177,7 +177,7 @@ public class ShareAccess {
 			}
 		}
 	}
-	
+
 	public static int getPercentA(String cCode) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
@@ -188,9 +188,15 @@ public class ShareAccess {
 			preState = con.prepareStatement(DbUtil.getPercentA(cCode));
 			preState.setString(1, cCode);
 			rs = preState.executeQuery();
-			int score = rs.getInt(1);
-			
-			return score;
+			int g = 0;
+
+			while (rs.next()) {
+				String str = rs.getString(1);
+				g = Integer.parseInt(str);
+
+			}
+
+			return g;
 
 		} catch (SQLException e) {
 			throw new StudentExceptions("Hittade inga resultat", e);
