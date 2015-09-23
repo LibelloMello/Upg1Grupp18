@@ -61,6 +61,10 @@ public class DbUtil {
 	public static String registerStudied() {
 		return "INSERT INTO Studied (spnr, ccode, grade) VALUES (?, ?, ?)";
 	}
+	
+	public static String getPercentA(String cCode) {
+		return "Select (Count(grade)* 100 / (Select Count(*) From Studied)) as Score From Studied s WHERE grade='A' Group By grade";
+	}
 
 	public static Course mapCourse(ResultSet rs) throws SQLException {
 		Course course = new Course();
