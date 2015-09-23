@@ -105,12 +105,19 @@ public class CourseAccess {
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 		try {
+			Course course = CourseAccess.getCourse(ccode);
+			if(course == null) {
+				return;
+			}
+			
+	
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.deleteCourse());
 			preState.setString(1, ccode);
 			preState.executeUpdate();
 
 		} catch (SQLException e) {
+			System.out.print("Tjena, läget?");
 			throw new CourseExceptions("Hittade ingen kurs", e);
 			
 		} finally {
@@ -136,6 +143,7 @@ public class CourseAccess {
 				}
 			}
 		}
+		
 
 	}
 

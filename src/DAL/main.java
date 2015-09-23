@@ -16,8 +16,8 @@ public class main {
 		
 		
 	try {
-		StudentAccess.deleteStudent("888");
-	} catch (StudentExceptions e) {
+		CourseAccess.deleteCourse("ccode");
+	} catch (CourseExceptions e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
