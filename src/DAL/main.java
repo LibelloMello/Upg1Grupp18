@@ -15,7 +15,7 @@ public class main {
 	public static void main(String[] args) {
 		
 		try {
-			System.out.print(ShareAccess.getPercentA("k1"));
+			System.out.print(ShareAccess.getTotalCredits("111"));
 		} catch (StudentExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

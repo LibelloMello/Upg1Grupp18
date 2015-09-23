@@ -225,6 +225,55 @@ public class ShareAccess {
 			}
 		}
 	}
+	
+	public static int getTotalCredits(String sPnr) throws StudentExceptions {
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(DbUtil.restraint45(sPnr));
+			preState.setString(1, sPnr);
+			rs = preState.executeQuery();
+			int g = 0;
+
+			while (rs.next()) {
+				String str = rs.getString(1);
+				g = Integer.parseInt(str);
+
+			}
+
+			return g;
+
+		} catch (SQLException e) {
+			throw new StudentExceptions("Hittade inga resultat", e);
+
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (preState != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (con != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
+
 
 	public static List<Studying> getAllStudying(String cCode) throws StudentExceptions {
 		Connection con = null;
