@@ -2,12 +2,14 @@ package DAL;
 
 import java.sql.SQLException;
 
+import controller.SharedController;
 import exceptions.CourseExceptions;
 import exceptions.StudentExceptions;
 import model.Course;
 import model.Student;
 import model.Studied;
 import view.CourseView;
+import view.SharedView;
 
 import java.sql.Connection;
 
@@ -16,7 +18,12 @@ public class main {
 	public static void main(String[] args) {
 	
 		
-		CourseView.addCourse("k20", "test", 30);
+		try {
+			System.out.print(ShareAccess.getResult("111", "k1"));
+		} catch (StudentExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 //	try {
 //		CourseAccess.deleteCourse("ccode");

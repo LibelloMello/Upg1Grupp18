@@ -321,7 +321,8 @@ public class GUI {
 				String msg = "";
 				
 				if (rdbtnShowStudentsResult.isSelected()) {
-				
+				lblmsgstudent.setText(msg);
+
 				
 				
 				}

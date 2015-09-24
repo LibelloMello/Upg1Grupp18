@@ -341,6 +341,7 @@ public class ShareAccess {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.getResult(sPnr, cCode));
 			preState.setString(1, sPnr);
+			preState.setString(2, cCode);
 			rs = preState.executeQuery();
 
 			if (rs.next())
@@ -349,7 +350,7 @@ public class ShareAccess {
 			return null;
 
 		} catch (SQLException e) {
-			throw new StudentExceptions("Hittade ingen student", e);
+			throw new StudentExceptions("Hittade ingen student på denna kurs", e);
 		} finally {
 			if (rs != null) {
 				try {
