@@ -331,4 +331,48 @@ public class ShareAccess {
 		}
 	}
 
+	public static Studied getResult(String sPnr, String cCode) throws StudentExceptions {
+
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(DbUtil.getResult(sPnr, cCode));
+			preState.setString(1, sPnr);
+			rs = preState.executeQuery();
+
+			if (rs.next())
+				return DbUtil.mapStudied(rs);
+			
+			return null;
+
+		} catch (SQLException e) {
+			throw new StudentExceptions("Hittade ingen student", e);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (preState != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (con != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+
+	}
 }

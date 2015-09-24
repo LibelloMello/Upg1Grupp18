@@ -49,6 +49,10 @@ public class DbUtil {
 	public static String getFinishedStudents(String cCode) {
 		return "SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studied s ON c.ccode=s.ccode WHERE c.ccode=?";
 	}
+	
+	public static String getResult (String sPnr, String cCode) {
+		return "SELECT grade FROM Studied WHERE spnr = ? AND ccode = ?";
+	}
 
 	public static String getUnfinishedStudents(String cCode) {
 		return "SELECT s.spnr, c.ccode FROM Course c JOIN Studying s ON c.ccode=s.ccode WHERE c.ccode = ?";

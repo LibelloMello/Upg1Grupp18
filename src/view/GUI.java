@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 
 public class GUI {
 
@@ -252,7 +253,7 @@ public class GUI {
 		frame.getContentPane().add(cmbcourse);
 		try {
 			for (Course c : CourseController.ReadAllCourses()) {
-				cmbcourse.addItem(c.getCcode() + ", " + c.getCname());
+				cmbcourse.addItem(c.getCcode());
 			}
 		} catch (CourseExceptions e1) {
 			// TODO Auto-generated catch block
@@ -270,21 +271,39 @@ public class GUI {
 		rdbtnremovestudentfrcourse.setBounds(6, 365, 209, 23);
 		frame.getContentPane().add(rdbtnremovestudentfrcourse);
 		
+		
+		
+		JComboBox cmbgrade = new JComboBox();
+		cmbgrade.setEnabled(false);
+		cmbgrade.setBounds(309, 392, 38, 20);
+		frame.getContentPane().add(cmbgrade);
+				cmbgrade.addItem("A");
+				cmbgrade.addItem("B");
+				cmbgrade.addItem("C");
+				cmbgrade.addItem("D");
+				cmbgrade.addItem("E");
+				cmbgrade.addItem("U");
+		
 		JRadioButton rdbtnregonstudied = new JRadioButton("Register finished student");
 		rdbtnregonstudied.setBounds(6, 391, 209, 23);
 		frame.getContentPane().add(rdbtnregonstudied);
-		
-		JComboBox cmbgrade = new JComboBox();
-		cmbgrade.setBounds(309, 392, 38, 20);
-		frame.getContentPane().add(cmbgrade);
+		if(rdbtnregonstudied.isSelected()) {
+			cmbgrade.setEnabled(true);
+		}
 		
 		JLabel lblFillInGrade = new JLabel("Fill in grade");
 		lblFillInGrade.setBounds(225, 395, 122, 14);
 		frame.getContentPane().add(lblFillInGrade);
+
 		
 		JRadioButton rdbtnShowStudentsResult = new JRadioButton("Show students result");
 		rdbtnShowStudentsResult.setBounds(6, 417, 188, 23);
 		frame.getContentPane().add(rdbtnShowStudentsResult);
+		ButtonGroup buttongroup = new ButtonGroup();
+		buttongroup.add(rdbtnShowStudentsResult);
+		buttongroup.add(rdbtnregonstudied);
+		buttongroup.add(rdbtnremovestudentfrcourse);
+		buttongroup.add(rdbtnregstudent);
 		
 		tblgrade = new JTable();
 		tblgrade.setBounds(270, 421, 77, 23);
@@ -295,6 +314,24 @@ public class GUI {
 		frame.getContentPane().add(lblStudentsGrade);
 		
 		JButton btnApply = new JButton("Apply");
+		btnApply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ccode = (String) cmbcourse.getSelectedItem();
+				String spnr = txtspnr.getText();
+				String msg = "";
+				
+				if (rdbtnShowStudentsResult.isSelected()) {
+				
+				
+				
+				}
+				
+				
+
+				
+				
+			}
+		});
 		btnApply.setBounds(147, 462, 97, 23);
 		frame.getContentPane().add(btnApply);
 		
