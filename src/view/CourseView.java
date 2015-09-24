@@ -1,34 +1,28 @@
 package view;
 
-import DAL.CourseAccess;
 import controller.CourseController;
 import exceptions.CourseExceptions;
 import model.Course;
 
 public class CourseView {
 
-	public void addCourse() {
-		String cCode;
-		String cName;
-		int cCredits;
+	public String addCourse(String ccode, String cname, int credits) {
+		String msg = "";
 		
-		cCode =
-		cName = (I controller/Jtable)
-		cCredits
-		
-		Course course = new Course();
-		course.setCcode(cCode);
-		course.setCname(cName);
-		course.setCredits(cCredits);
-		
+		Course c = new Course();
+		c.setCcode(ccode);
+		c.setCname(cname);
+		c.setCredits(credits);
+
 		try {
-			CourseController.Create(course);
-			
+			controller.CourseController.Create(c);
+			msg = "gick";
 			
 		} catch (CourseExceptions e) {
-			
+			msg = "Gick inte";
 		}
 		
+		return msg;
 	}
 	
 	}

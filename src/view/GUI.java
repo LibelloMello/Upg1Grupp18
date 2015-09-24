@@ -31,9 +31,7 @@ public class GUI {
 	private JTable tblastudyingcourse;
 	private JTable tblafinishedwithcourse;
 	private JTable tblpercentofA;
-	private Object[] headerStudent = {"Student ID", "Name", "Address"};
 	private JTable tblflow;
-	private DefaultTableModel model1 = new DefaultTableModel(headerStudent, 3);
 	
 	
 	
@@ -90,10 +88,18 @@ public class GUI {
 		txtsaddress.setColumns(10);
 		
 		JButton btnRegisterStudent = new JButton("Register Student");
+		btnRegisterStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnRegisterStudent.setBounds(10, 103, 133, 23);
 		frame.getContentPane().add(btnRegisterStudent);
 		
 		JButton btnSearchStudentn = new JButton("Search Student");
+		btnSearchStudentn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnSearchStudentn.setBounds(153, 103, 133, 23);
 		frame.getContentPane().add(btnSearchStudentn);
 		
@@ -129,6 +135,21 @@ public class GUI {
 		txtcCredits.setColumns(10);
 		
 		JButton btnRegisterCourse = new JButton("Register Course");
+		btnRegisterCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				//String ccode = textField_1.getText();
+				String msg = "";
+				try{
+					//msg = COurseview.addCourse(ccode,)
+				}catch{
+					
+				}
+				//textFieldmsgLabe.setText(msg);
+				 * */
+				 
+			}
+		});
 		btnRegisterCourse.setBounds(430, 103, 144, 23);
 		frame.getContentPane().add(btnRegisterCourse);
 		
@@ -157,17 +178,22 @@ public class GUI {
 		lblSelectCourse.setBounds(10, 307, 87, 14);
 		frame.getContentPane().add(lblSelectCourse);
 		
+		
+		
 //		.add(new JScrollPane())
 		
 
-				
+		DefaultTableModel model1 = new DefaultTableModel();	
 		tblstudent = new JTable(model1);
+		JScrollPane jpane = new JScrollPane(tblstudent);
+		String studentList[] = new String[] {
+				"Student ID", "Name", "Address" 
+		};
+		model1.setColumnIdentifiers(studentList);
 		tblstudent.setBounds(25, 196, 322, 47);
 		frame.getContentPane().add(tblstudent);
-//		JScrollPane jpane = new JScrollPane(tblstudent);
 		
-//		jpane.set
-//		
+		
 		JComboBox cmbcourse = new JComboBox();
 		cmbcourse.setBounds(117, 304, 230, 17);
 		frame.getContentPane().add(cmbcourse);
