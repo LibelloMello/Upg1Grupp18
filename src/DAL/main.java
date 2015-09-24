@@ -13,14 +13,16 @@ import java.sql.Connection;
 public class main {
 
 	public static void main(String[] args) {
+	
 		
+		CourseAccess.registerCourse("k2", "kolla", 10);
 		
-	try {
-		CourseAccess.deleteCourse("ccode");
-	} catch (CourseExceptions e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+//	try {
+//		CourseAccess.deleteCourse("ccode");
+//	} catch (CourseExceptions e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
 		
 //		 try {
 //		 ShareAccess.registerStudentOnCourse("777", "bla");

@@ -106,11 +106,10 @@ public class CourseAccess {
 		ResultSet rs = null;
 		try {
 			Course course = CourseAccess.getCourse(ccode);
-			if(course == null) {
+			if (course == null) {
 				return;
 			}
-			
-	
+
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.deleteCourse());
 			preState.setString(1, ccode);
@@ -119,13 +118,13 @@ public class CourseAccess {
 		} catch (SQLException e) {
 			System.out.print("Tjena, läget?");
 			throw new CourseExceptions("Hittade ingen kurs", e);
-			
+
 		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					
+
 				}
 			}
 
@@ -143,20 +142,21 @@ public class CourseAccess {
 				}
 			}
 		}
-		
 
 	}
 
-	public static void registerCourse(String ccode, String cname, Integer credits) {
+	public static void registerCourse(Course course) throws CourseExceptions {
 
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement("INSERT INTO Course (ccode, cname, credits) VALUES (?, ?, ?)");
+			preState = con.prepareStatement(DbUtil.registerCourse());
 
-			preState.setString(1, ccode);
-			preState.setString(2, cname);
-			preState.setInt(3, credits);
+			preState.setString(1, course.getCcode());
+			preState.setString(2, course.getCname());
+			preState.setInt(3, course.getCredits());
 			preState.executeUpdate();
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

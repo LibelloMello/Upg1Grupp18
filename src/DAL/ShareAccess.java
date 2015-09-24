@@ -17,67 +17,66 @@ public class ShareAccess {
 	static ResultSet rs = null;
 
 	public static void registerStudentOnCourse(String sPnr, String cCode) throws StudentExceptions {
-		 Connection con = null;
-		 PreparedStatement preState = null;
-		 ResultSet rs = null;
-		 int k = 0;
-		
-		 try {
-			 con = DbUtil.getConn();
-				preState = con.prepareStatement(ShareAccess.getTotalCredits(sPnr));
-				preState.setString(1, sPnr); 
-				rs = preState.executeQuery();
-				
-				while (rs.next()) {
-					k = rs.getInt(1);
-//					g = Integer.parseInt(k);
-				}
-				
-				System.out.print("Vafan");
-		 }  catch (SQLException e) {
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+		int k = 0;
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(ShareAccess.getTotalCredits(sPnr));
+			preState.setString(1, sPnr);
+			rs = preState.executeQuery();
+
+			while (rs.next()) {
+				k = rs.getInt(1);
+				// g = Integer.parseInt(k);
+			}
+
+			System.out.print("Vafan");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		if (k > 46) {
+			try {
+				con = DbUtil.getConn();
+				preState = con.prepareStatement(DbUtil.registerStudentOnCourse());
+				preState.setString(1, sPnr);
+				preState.setString(2, cCode);
+				preState.executeUpdate();
+
+			} catch (SQLException e) {
 				e.printStackTrace();
-		 }
-				
-				if (k > 46) {
+
+			}
+
+		} else {
+			try {
+				System.out.print("Sorry mannen" + k);
+			} finally {
+				if (rs != null) {
 					try {
-						con = DbUtil.getConn();
-						preState = con.prepareStatement(DbUtil.registerStudentOnCourse());
-						preState.setString(1, sPnr);
-						preState.setString(2, cCode);
-						preState.executeUpdate();
-
+						rs.close();
 					} catch (SQLException e) {
-						e.printStackTrace();
-
+					}
 				}
-					
-		 } else {
-			 try {
-				 System.out.print("Sorry mannen" + k);
-			 } finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-		 
 
-			if (preState != null) {
-				try {
-					preState.close();
-				} catch (SQLException e) {
+				if (preState != null) {
+					try {
+						preState.close();
+					} catch (SQLException e) {
+					}
 				}
-			}
 
-			if (con != null) {
-				try {
-					preState.close();
-				} catch (SQLException e) {
+				if (con != null) {
+					try {
+						preState.close();
+					} catch (SQLException e) {
+					}
 				}
 			}
 		}
-		 }
 
 	}
 
@@ -126,7 +125,6 @@ public class ShareAccess {
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.deleteStudying());
-
 			preState.setString(1, spnr);
 			preState.setString(2, ccode);
 			preState.executeUpdate();
@@ -244,7 +242,7 @@ public class ShareAccess {
 			}
 		}
 	}
-	
+
 	public static String getTotalCredits(String sPnr) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
@@ -256,15 +254,13 @@ public class ShareAccess {
 			preState.setString(1, sPnr);
 			rs = preState.executeQuery();
 			int g = 0;
-			
 
 			while (rs.next()) {
 				g = rs.getInt(1);
 
-
 			}
 			String poop = Integer.toString(g);
-		return poop;
+			return poop;
 
 		} catch (SQLException e) {
 			throw new StudentExceptions("Hittade inga resultat", e);
@@ -293,7 +289,6 @@ public class ShareAccess {
 			}
 		}
 	}
-
 
 	public static List<Studying> getAllStudying(String cCode) throws StudentExceptions {
 		Connection con = null;

@@ -20,56 +20,61 @@ public class DbUtil {
 	}
 
 	public static String getAllCourses() {
-		return "SELECT * " + "FROM Course ";
+		return "SELECT * FROM Course ";
 	}
-	
+	public static String registerCourse() {
+		return "INSERT INTO Course (ccode, cname, credits) VALUES (?, ?, ?)";
+	}
+
 	public static String getAllStudents() {
 		return "SELECT * FROM Student";
 	}
-	
+
 	public static String getStudent() {
 		return "SELECT * FROM STUDENT WHERE spnr = ?";
 	}
-	
+
 	public static String deleteStudent() {
 		return "DELETE FROM Student WHERE spnr=?";
 	}
-	
+
 	public static String registerStudent() {
 		return "INSERT INTO Student (spnr, sname, saddress) VALUES (?, ?, ?)";
 	}
+
 	public static String registerStudentOnCourse() {
-		return 	"INSERT INTO Studying (spnr, ccode) VALUES (?, ?)";
+		return "INSERT INTO Studying (spnr, ccode) VALUES (?, ?)";
 	}
 
 	public static String getFinishedStudents(String cCode) {
 		return "SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studied s ON c.ccode=s.ccode WHERE c.ccode=?";
 	}
-	
+
 	public static String getUnfinishedStudents(String cCode) {
 		return "SELECT s.spnr, c.ccode FROM Course c JOIN Studying s ON c.ccode=s.ccode WHERE c.ccode = ?";
 	}
-	
-	public static String deleteStudying () {
+
+	public static String deleteStudying() {
 		return "DELETE FROM Studying WHERE spnr=? AND ccode=?";
 	}
-	
+
 	public static String getCourse() {
 		return "SELECT * FROM Course WHERE ccode=?";
 	}
-	
+
 	public static String deleteCourse() {
-	return "DELETE FROM Course WHERE ccode=?";
+		return "DELETE FROM Course WHERE ccode=?";
 	}
-	
+
 	public static String registerStudied() {
 		return "INSERT INTO Studied (spnr, ccode, grade) VALUES (?, ?, ?)";
 	}
-	
+
 	public static String getPercentA(String cCode) {
 		return "Select (Count(grade)* 100 / (Select Count(*) From Studied)) as Score From Studied s WHERE s.grade='A' AND s.ccode=? Group By grade ";
 	}
-	public static String checkIfFortyFive (String sPnr) {
+
+	public static String checkIfFortyFive(String sPnr) {
 		return "SELECT sum(credits) FROM Course WHERE ccode IN (SELECT ccode FROM Studying WHERE spnr = ?)";
 	}
 
@@ -77,7 +82,7 @@ public class DbUtil {
 		Course course = new Course();
 		course.setCcode(rs.getString("ccode"));
 		course.setCname(rs.getString("cname"));
-		course.setCredits(rs.getString("credits"));
+		course.setCredits(rs.getInt("credits"));
 
 		return course;
 
@@ -92,7 +97,7 @@ public class DbUtil {
 		}
 		return cList;
 	}
-	
+
 	public static Student mapStudent(ResultSet rs) throws SQLException {
 		Student student = new Student();
 		student.setsPnr(rs.getString("spnr"));
@@ -102,7 +107,7 @@ public class DbUtil {
 		return student;
 
 	}
-	
+
 	public static List<Student> mapStudents(ResultSet rs) throws SQLException {
 		List<Student> sList = new ArrayList<Student>();
 
@@ -112,7 +117,7 @@ public class DbUtil {
 		}
 		return sList;
 	}
-	
+
 	public static Studied mapStudied(ResultSet rs) throws SQLException {
 		Studied studied = new Studied();
 		studied.setsPnr(rs.getString("spnr"));
@@ -132,6 +137,7 @@ public class DbUtil {
 		}
 		return studiedList;
 	}
+
 	public static Studying mapStudying(ResultSet rs) throws SQLException {
 		Studying studying = new Studying();
 		studying.setsPnr(rs.getString("spnr"));

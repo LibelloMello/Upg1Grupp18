@@ -12,25 +12,25 @@ import model.Course;
 import model.Student;
 
 public class StudentAccess {
-	
+
 	public static Student getStudent(String sPnr) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.getStudent());
 			preState.setString(1, sPnr);
 			rs = preState.executeQuery();
-			
+
 			if (rs.next())
 				return DbUtil.mapStudent(rs);
-			
+
 			return null;
-			
-		} catch (SQLException e) { 
-		throw new StudentExceptions("Hittade ingen student", e);
+
+		} catch (SQLException e) {
+			throw new StudentExceptions("Hittade ingen student", e);
 
 		} finally {
 
@@ -56,8 +56,6 @@ public class StudentAccess {
 			}
 		}
 	}
-
-	
 
 	public static List<Student> getAllStudents() throws StudentExceptions {
 		Connection con = null;
@@ -145,10 +143,10 @@ public class StudentAccess {
 		ResultSet rs = null;
 		try {
 			Student student = StudentAccess.getStudent(spnr);
-			if(student == null) {
+			if (student == null) {
 				return;
 			}
-			
+
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.deleteStudent());
 			preState.setString(1, spnr);
