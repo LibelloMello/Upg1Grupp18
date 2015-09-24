@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,12 +26,17 @@ public class GUI {
 	private JTextField txtcName;
 	private JTextField txtcCredits;
 	private JTextField txtspnrreg;
-	private JTable table;
-	private JTable table_1;
-
-	/**
-	 * Launch the application.
-	 */
+	private JTable tblstudent;
+	private JTable tblgrade;
+	private JTable tblastudyingcourse;
+	private JTable tblafinishedwithcourse;
+	private JTable tblpercentofA;
+	private Object[] headerStudent = {"Student ID", "Name", "Address"};
+	private JTable tblflow;
+	private DefaultTableModel model1 = new DefaultTableModel(headerStudent, 3);
+	
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -44,19 +50,15 @@ public class GUI {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public GUI() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 714, 558);
+		frame.setBounds(100, 100, 743, 558);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -100,34 +102,34 @@ public class GUI {
 		frame.getContentPane().add(btnDeleteStudent);
 		
 		txtcCode = new JTextField();
-		txtcCode.setBounds(446, 8, 178, 20);
+		txtcCode.setBounds(513, 8, 178, 20);
 		frame.getContentPane().add(txtcCode);
 		txtcCode.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Course Code");
-		lblNewLabel.setBounds(349, 11, 87, 14);
+		lblNewLabel.setBounds(412, 11, 87, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblCourseName = new JLabel("Course Name");
-		lblCourseName.setBounds(349, 36, 87, 14);
+		lblCourseName.setBounds(412, 36, 87, 14);
 		frame.getContentPane().add(lblCourseName);
 		
 		txtcName = new JTextField();
-		txtcName.setBounds(446, 33, 178, 20);
+		txtcName.setBounds(513, 33, 178, 20);
 		frame.getContentPane().add(txtcName);
 		txtcName.setColumns(10);
 		
 		JLabel lblCredits = new JLabel("Credits");
-		lblCredits.setBounds(349, 61, 77, 14);
+		lblCredits.setBounds(412, 61, 77, 14);
 		frame.getContentPane().add(lblCredits);
 		
 		txtcCredits = new JTextField();
-		txtcCredits.setBounds(446, 58, 178, 20);
+		txtcCredits.setBounds(513, 58, 178, 20);
 		frame.getContentPane().add(txtcCredits);
 		txtcCredits.setColumns(10);
 		
 		JButton btnRegisterCourse = new JButton("Register Course");
-		btnRegisterCourse.setBounds(389, 103, 144, 23);
+		btnRegisterCourse.setBounds(430, 103, 144, 23);
 		frame.getContentPane().add(btnRegisterCourse);
 		
 		JButton btnSearchCourse = new JButton("Search Course");
@@ -135,16 +137,12 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSearchCourse.setBounds(543, 103, 133, 23);
+		btnSearchCourse.setBounds(584, 103, 133, 23);
 		frame.getContentPane().add(btnSearchCourse);
 		
 		JButton btnDeleteCourse = new JButton("Delete Course");
-		btnDeleteCourse.setBounds(472, 137, 123, 23);
+		btnDeleteCourse.setBounds(526, 137, 123, 23);
 		frame.getContentPane().add(btnDeleteCourse);
-		
-		JLabel lblmsgcourse = new JLabel("Message:");
-		lblmsgcourse.setBounds(428, 171, 232, 14);
-		frame.getContentPane().add(lblmsgcourse);
 		
 		JLabel lblNewLabel_1 = new JLabel("Student ID");
 		lblNewLabel_1.setBounds(10, 282, 97, 14);
@@ -159,10 +157,17 @@ public class GUI {
 		lblSelectCourse.setBounds(10, 307, 87, 14);
 		frame.getContentPane().add(lblSelectCourse);
 		
-		table = new JTable();
-		table.setBounds(25, 171, 322, 72);
-		frame.getContentPane().add(table);
+//		.add(new JScrollPane())
 		
+
+				
+		tblstudent = new JTable(model1);
+		tblstudent.setBounds(25, 196, 322, 47);
+		frame.getContentPane().add(tblstudent);
+//		JScrollPane jpane = new JScrollPane(tblstudent);
+		
+//		jpane.set
+//		
 		JComboBox cmbcourse = new JComboBox();
 		cmbcourse.setBounds(117, 304, 230, 17);
 		frame.getContentPane().add(cmbcourse);
@@ -191,12 +196,48 @@ public class GUI {
 		rdbtnShowStudentsResult.setBounds(6, 417, 188, 23);
 		frame.getContentPane().add(rdbtnShowStudentsResult);
 		
-		table_1 = new JTable();
-		table_1.setBounds(270, 421, 77, 23);
-		frame.getContentPane().add(table_1);
+		tblgrade = new JTable();
+		tblgrade.setBounds(270, 421, 77, 23);
+		frame.getContentPane().add(tblgrade);
 		
 		JLabel lblStudentsGrade = new JLabel("Grade:");
 		lblStudentsGrade.setBounds(225, 426, 80, 14);
 		frame.getContentPane().add(lblStudentsGrade);
+		
+		JButton btnApply = new JButton("Apply");
+		btnApply.setBounds(147, 462, 97, 23);
+		frame.getContentPane().add(btnApply);
+		
+		tblastudyingcourse = new JTable();
+		tblastudyingcourse.setBounds(412, 196, 305, 47);
+		frame.getContentPane().add(tblastudyingcourse);
+		
+		JLabel lblStudentsStudyingThis = new JLabel("Students studying this course");
+		lblStudentsStudyingThis.setBounds(491, 171, 178, 14);
+		frame.getContentPane().add(lblStudentsStudyingThis);
+		
+		tblafinishedwithcourse = new JTable();
+		tblafinishedwithcourse.setBounds(411, 282, 306, 47);
+		frame.getContentPane().add(tblafinishedwithcourse);
+		
+		JLabel lblStudentsFinishedWith = new JLabel("Students finished with this course");
+		lblStudentsFinishedWith.setBounds(495, 257, 196, 14);
+		frame.getContentPane().add(lblStudentsFinishedWith);
+		
+		JLabel lblPercentWi = new JLabel("Percent with highest grade");
+		lblPercentWi.setBounds(412, 343, 159, 14);
+		frame.getContentPane().add(lblPercentWi);
+		
+		tblpercentofA = new JTable();
+		tblpercentofA.setBounds(558, 343, 62, 19);
+		frame.getContentPane().add(tblpercentofA);
+		
+		JButton btnCourseWithHighest = new JButton("Course with highest passed quota  ");
+		btnCourseWithHighest.setBounds(410, 392, 239, 23);
+		frame.getContentPane().add(btnCourseWithHighest);
+		
+		tblflow = new JTable();
+		tblflow.setBounds(412, 439, 270, 23);
+		frame.getContentPane().add(tblflow);
 	}
 }
