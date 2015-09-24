@@ -7,6 +7,7 @@ import exceptions.StudentExceptions;
 import model.Course;
 import model.Student;
 import model.Studied;
+import view.CourseView;
 
 import java.sql.Connection;
 
@@ -15,7 +16,7 @@ public class main {
 	public static void main(String[] args) {
 	
 		
-		CourseAccess.registerCourse("k2", "kolla", 10);
+		CourseView.addCourse("k20", "test", 30);
 		
 //	try {
 //		CourseAccess.deleteCourse("ccode");

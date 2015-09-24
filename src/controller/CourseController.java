@@ -8,19 +8,19 @@ import model.Course;
 
 public class CourseController {
 		
-		public static void Create(Course course) throws CourseExceptions{
+		public static void CreateCourse(Course course) throws CourseExceptions{
 			CourseAccess.registerCourse(course);
 		}
 		
-		public static Course Read(String cCode) throws CourseExceptions{
+		public static Course ReadCourse(String cCode) throws CourseExceptions{
 			return CourseAccess.getCourse(cCode);
 		}
 		
-		public static List<Course> ReadAll() throws CourseExceptions{
+		public static List<Course> ReadAllCourses() throws CourseExceptions{
 			return CourseAccess.getAllCourses();
 		}
 		
-		public static void Delete(String cCode) throws CourseExceptions{
+		public static void DeleteCourse(String cCode) throws CourseExceptions{
 			CourseAccess.deleteCourse(cCode);
 		}
 	

@@ -97,7 +97,7 @@ public class StudentAccess {
 		}
 	}
 
-	public static void registerStudent(String spnr, String sname, String saddress) {
+	public static void registerStudent(Student student) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
@@ -106,9 +106,9 @@ public class StudentAccess {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.registerStudent());
 
-			preState.setString(1, spnr);
-			preState.setString(2, sname);
-			preState.setString(3, saddress);
+			preState.setString(1, student.getSpnr());
+			preState.setString(2, student.getsName());
+			preState.setString(3, student.getsAddress());
 			preState.executeUpdate();
 
 		} catch (SQLException e) {

@@ -12,9 +12,6 @@ import model.Course;
 import model.Student;
 
 public class CourseAccess {
-	static Connection con = null;
-	static PreparedStatement preState = null;
-	static ResultSet rs = null;
 
 	public static Course getCourse(String cCode) throws CourseExceptions {
 		Connection con = null;
@@ -146,7 +143,10 @@ public class CourseAccess {
 	}
 
 	public static void registerCourse(Course course) throws CourseExceptions {
-
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+		
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.registerCourse());
