@@ -12,6 +12,7 @@ import controller.CourseController;
 import exceptions.CourseExceptions;
 import exceptions.StudentExceptions;
 import model.Course;
+import model.Student;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -93,11 +94,12 @@ public class GUI {
 		panelstudent.setLayout(null);
 		
 		JScrollPane scrollStudent = new JScrollPane();
+		scrollStudent.setEnabled(false);
 		scrollStudent.setBounds(37, 185, 286, 57);
 		panelstudent.add(scrollStudent);
 		
 		String[] headerStudents = { "Student ID", "Name", "Address" };
-		tablemodelstudents = new DefaultTableModel(headerStudents, 3);
+		tablemodelstudents = new DefaultTableModel(headerStudents, 0);
 		
 
 		tabelstudent = new JTable(tablemodelstudents);
@@ -120,17 +122,32 @@ public class GUI {
 		panelstudent.add(btnSearchStudentn);
 		btnSearchStudentn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Student student = null;
+				String spnr = txtspnr.getText();
+				String sname = "";
+				String saddress = "";
 				
-				String spnr = txtspnr.getText(); 
+				
 				try {
-					tablemodelstudents.addRow(StudentView.getStudent(spnr));
-					StudentView.getStudent(spnr);
+					student = StudentView.getStudent(spnr);
 					
-				}catch(StudentExceptions e1) {
-					
+						spnr = student.getSpnr();
+						sname = student.getsName();
+						saddress = student.getsAddress();
+						
+						Object[] data = {spnr, sname, saddress};
+						
+						tablemodelstudents.addRow(data);
+					} catch (Exception e2){
+					e2.printStackTrace();
+				
+				
 				}
+	
 			}
 		});
+		
+		
 
 		JLabel lblStudentName = new JLabel("Student Name");
 		lblStudentName.setBounds(10, 37, 68, 14);
