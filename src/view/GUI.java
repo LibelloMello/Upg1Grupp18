@@ -214,6 +214,29 @@ public class GUI {
 		panelstudent.setBounds(0, 0, 402, 271);
 		frame.getContentPane().add(panelstudent);
 		panelstudent.setLayout(null);
+		
+		JScrollPane scrollStudent = new JScrollPane();
+		scrollStudent.setBounds(37, 185, 286, 57);
+		panelstudent.add(scrollStudent);
+		
+		String[] headerStudents = { "Student ID", "Name", "Address" };
+		tablemodelstudents = new DefaultTableModel(headerStudents, 3);
+		
+
+		tabelstudent = new JTable(tablemodelstudents);
+		scrollStudent.setViewportView(tabelstudent);
+		
+
+
+
+		JLabel lblNewLabel_1 = new JLabel("Student ID");
+		lblNewLabel_1.setBounds(10, 11, 97, 14);
+		panel_1.add(lblNewLabel_1);
+
+		txtspnrreg = new JTextField();
+		txtspnrreg.setBounds(117, 7, 230, 23);
+		panel_1.add(txtspnrreg);
+		txtspnrreg.setColumns(10);
 
 		JButton btnSearchStudentn = new JButton("Search Student");
 		btnSearchStudentn.setBounds(86, 116, 107, 23);
@@ -223,7 +246,7 @@ public class GUI {
 				
 				String spnr = txtspnr.getText(); 
 				try {
-					
+					tablemodelstudents.addColumn(spnr);
 					StudentView.getStudent(spnr);
 					
 				}catch(StudentExceptions e1) {
@@ -299,7 +322,7 @@ public class GUI {
 		txtsname.setBounds(103, 34, 159, 20);
 		panelstudent.add(txtsname);
 		txtsname.setColumns(10);
-
+/**
 		JScrollPane scrollStudent = new JScrollPane();
 		scrollStudent.setBounds(37, 185, 286, 57);
 		panelstudent.add(scrollStudent);
@@ -322,7 +345,7 @@ public class GUI {
 		txtspnrreg.setBounds(117, 7, 230, 23);
 		panel_1.add(txtspnrreg);
 		txtspnrreg.setColumns(10);
-
+**/
 		
 
 		JRadioButton rdbtnregstudent = new JRadioButton("Register student on course");
