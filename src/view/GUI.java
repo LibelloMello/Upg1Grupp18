@@ -220,6 +220,15 @@ public class GUI {
 		panelstudent.add(btnSearchStudentn);
 		btnSearchStudentn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String spnr = txtspnr.getText(); 
+				try {
+					
+					StudentView.getStudent(spnr);
+					
+				}catch(StudentExceptions e1) {
+					
+				}
 			}
 		});
 
@@ -227,7 +236,7 @@ public class GUI {
 		lblStudentName.setBounds(10, 37, 68, 14);
 		panelstudent.add(lblStudentName);
 
-		JLabel lblStudentAddress = new JLabel("Student Address");
+		JLabel lblStudentAddress = new JLabel("StudentiAddress");
 		lblStudentAddress.setBounds(10, 65, 80, 14);
 		panelstudent.add(lblStudentAddress);
 		

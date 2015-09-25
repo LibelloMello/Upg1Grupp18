@@ -42,5 +42,19 @@ public class StudentView {
 		
 		return msg;
 	}
+	
+	public static Student getStudent(String spnr) throws StudentExceptions{
+		String msg = "";
+		Student student = null;
+		try {
+			student = StudentController.ReadStudent(spnr);
+			msg = "Student was found";
+			
+		} catch (StudentExceptions e) {
+				msg = "Student was not found";	
+		}
+		return student;
+
+	}
 
 }

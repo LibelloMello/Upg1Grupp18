@@ -10,6 +10,7 @@ import model.Student;
 import model.Studied;
 import view.CourseView;
 import view.SharedView;
+import view.StudentView;
 
 import java.sql.Connection;
 
@@ -17,14 +18,14 @@ public class main {
 
 	public static void main(String[] args) {
 	
-		
+	
 		try {
-			System.out.print(ShareAccess.getResult("111", "k1"));
+			System.out.println(StudentView.getStudent("111"));
 		} catch (StudentExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+			
 //	try {
 //		CourseAccess.deleteCourse("ccode");
 //	} catch (CourseExceptions e) {
