@@ -51,7 +51,7 @@ public class DbUtil {
 	}
 	
 	public static String getResult (String sPnr, String cCode) {
-		return "SELECT grade FROM Studied WHERE spnr = ? AND ccode = ?";
+		return "SELECT * FROM Studied WHERE spnr = ? AND ccode = ?";
 	}
 
 	public static String getUnfinishedStudents(String cCode) {

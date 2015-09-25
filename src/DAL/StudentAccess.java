@@ -97,7 +97,7 @@ public class StudentAccess {
 		}
 	}
 
-	public static void registerStudent(Student student) throws StudentExceptions {
+	public static void registerStudent(Student student)throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
@@ -112,7 +112,7 @@ public class StudentAccess {
 			preState.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new StudentExceptions("Student already exists", e);
 		} finally {
 			if (rs != null) {
 				try {

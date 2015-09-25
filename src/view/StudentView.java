@@ -5,7 +5,7 @@ import exceptions.StudentExceptions;
 import model.Student;
 
 public class StudentView {
-	public static String addStudent(String spnr, String sname, String saddress) {
+	public static String addStudent(String spnr, String sname, String saddress) throws StudentExceptions {
 		String msg = "";
 
 		Student s = new Student();
@@ -15,12 +15,12 @@ public class StudentView {
 
 		try {
 			controller.StudentController.Create(s);
-			msg = "Gick";
+			msg = "Student registered";
 
 		} catch (StudentExceptions e) {
-			msg = "Gick inte";
+			msg = "Student already exists";
 		}
-
+	
 		return msg;
 	}
 

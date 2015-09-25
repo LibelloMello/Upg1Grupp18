@@ -15,10 +15,10 @@ public class SharedView {
 
 		try {
 
-			msg = controller.SharedController.ReadResult(sPnr, cCode).getsGrade();
-
+			controller.SharedController.ReadResult(sPnr, cCode);
+			msg = "Found student";
 		} catch (StudentExceptions e) {
-			msg = "Gick inte";
+			msg = "Found no student";
 		}
 
 		return msg;

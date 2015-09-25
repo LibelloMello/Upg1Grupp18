@@ -344,9 +344,12 @@ public class ShareAccess {
 			preState.setString(2, cCode);
 			rs = preState.executeQuery();
 
-			if (rs.next())
+			if (rs.next()) {
+
 				return DbUtil.mapStudied(rs);
-			
+
+			}
+
 			return null;
 
 		} catch (SQLException e) {
@@ -373,7 +376,6 @@ public class ShareAccess {
 				}
 			}
 		}
-
 
 	}
 }
