@@ -76,139 +76,16 @@ public class GUI {
 		panel_1.setBounds(0, 276, 401, 271);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
-
-		JLabel lblmsgcourse = new JLabel("Message:");
-		lblmsgcourse.setBounds(430, 172, 287, 14);
-		frame.getContentPane().add(lblmsgcourse);
-
-		tblcourse = new JTable();
-		tblcourse.setBounds(412, 209, 375, 20);
-		frame.getContentPane().add(tblcourse);
-
-		txtcCode = new JTextField();
-		txtcCode.setBounds(513, 8, 178, 20);
-		frame.getContentPane().add(txtcCode);
-		txtcCode.setColumns(10);
-
-		JLabel lblNewLabel = new JLabel("Course Code");
-		lblNewLabel.setBounds(412, 11, 87, 14);
-		frame.getContentPane().add(lblNewLabel);
-
-		JLabel lblCourseName = new JLabel("Course Name");
-		lblCourseName.setBounds(412, 36, 87, 14);
-		frame.getContentPane().add(lblCourseName);
-
-		txtcName = new JTextField();
-		txtcName.setBounds(513, 33, 178, 20);
-		frame.getContentPane().add(txtcName);
-		txtcName.setColumns(10);
-
-		JLabel lblCredits = new JLabel("Credits");
-		lblCredits.setBounds(412, 61, 77, 14);
-		frame.getContentPane().add(lblCredits);
-
-		txtcCredits = new JTextField();
-		txtcCredits.setBounds(513, 58, 178, 20);
-		frame.getContentPane().add(txtcCredits);
-		txtcCredits.setColumns(10);
-		
-		
-
-		JButton btnRegisterCourse = new JButton("Register Course");
-		btnRegisterCourse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				String ccode = txtcCode.getText();
-				String cname = txtcName.getText();
-				String creditsString = txtcCredits.getText();
-				int credits = Integer.parseInt(creditsString);
-				String msg = "";
-				msg = CourseView.addCourse(ccode, cname, credits);
-				lblmsgcourse.setText(msg);
-
-			}
-		});
 		
 		JComboBox cmbcourse = new JComboBox();
 		cmbcourse.setBounds(117, 41, 230, 28);
 		panel_1.add(cmbcourse);
-		
-		btnRegisterCourse.setBounds(430, 103, 144, 23);
-		frame.getContentPane().add(btnRegisterCourse);
-
-		JButton btnSearchCourse = new JButton("Search Course");
-		btnSearchCourse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String ccode = txtcCode.getText();
-				String cname = txtcName.getText();
-				String creditsString = txtcCredits.getText();
-				int credits = Integer.parseInt(creditsString);
-				String msg = "";
-				msg = CourseView.addCourse(ccode, cname, credits);
-				lblmsgcourse.setText(msg);
-
-			}
-		});
-		btnSearchCourse.setBounds(584, 103, 133, 23);
-		frame.getContentPane().add(btnSearchCourse);
-
-		JButton btnDeleteCourse = new JButton("Delete Course");
-		btnDeleteCourse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String ccode = txtcCode.getText();
-				String msg = "";
-				msg = CourseView.deleteCourse(ccode);
-				lblmsgcourse.setText(msg);
-			}
-		});
 		
 		
 		
 		
 		
 		ButtonGroup buttongroup = new ButtonGroup();
-
-		tblgrade = new JTable();
-		tblgrade.setBounds(270, 421, 77, 23);
-		frame.getContentPane().add(tblgrade);
-		
-		
-
-		tblastudyingcourse = new JTable();
-		tblastudyingcourse.setBounds(412, 282, 162, 152);
-		frame.getContentPane().add(tblastudyingcourse);
-
-		JLabel lblStudentsStudyingThis = new JLabel("Students studying this course");
-		lblStudentsStudyingThis.setBounds(414, 246, 178, 14);
-		frame.getContentPane().add(lblStudentsStudyingThis);
-
-		tblafinishedwithcourse = new JTable();
-		tblafinishedwithcourse.setBounds(618, 282, 169, 152);
-		frame.getContentPane().add(tblafinishedwithcourse);
-
-		JLabel lblStudentsFinishedWith = new JLabel("Students finished with this course");
-		lblStudentsFinishedWith.setBounds(621, 246, 196, 14);
-		frame.getContentPane().add(lblStudentsFinishedWith);
-
-		JLabel lblPercentWi = new JLabel("Percent with highest grade");
-		lblPercentWi.setBounds(490, 442, 159, 14);
-		frame.getContentPane().add(lblPercentWi);
-
-		tblpercentofA = new JTable();
-		tblpercentofA.setBounds(659, 442, 62, 14);
-		frame.getContentPane().add(tblpercentofA);
-
-		JButton btnCourseWithHighest = new JButton("Course with highest passed quota  ");
-		btnCourseWithHighest.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCourseWithHighest.setBounds(430, 498, 239, 23);
-		frame.getContentPane().add(btnCourseWithHighest);
-
-		tblflow = new JTable();
-		tblflow.setBounds(430, 532, 270, 23);
-		frame.getContentPane().add(tblflow);
 
 		JPanel panelstudent = new JPanel();
 		panelstudent.setBounds(0, 0, 402, 271);
@@ -246,7 +123,7 @@ public class GUI {
 				
 				String spnr = txtspnr.getText(); 
 				try {
-					tablemodelstudents.addColumn(spnr);
+					tablemodelstudents.addRow(StudentView.getStudent(spnr));
 					StudentView.getStudent(spnr);
 					
 				}catch(StudentExceptions e1) {
@@ -392,6 +269,10 @@ public class GUI {
 		cmbgrade.addItem("D");
 		cmbgrade.addItem("E");
 		cmbgrade.addItem("U");
+		
+				tblgrade = new JTable();
+				tblgrade.setBounds(270, 160, 77, 23);
+				panel_1.add(tblgrade);
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String ccode = (String) cmbcourse.getSelectedItem();
@@ -413,8 +294,130 @@ public class GUI {
 			}
 		});
 		
-		btnDeleteCourse.setBounds(526, 137, 123, 23);
-		frame.getContentPane().add(btnDeleteCourse);
+		JPanel panel = new JPanel();
+		panel.setBounds(398, 0, 429, 582);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+				txtcCode = new JTextField();
+				txtcCode.setBounds(108, 11, 178, 20);
+				panel.add(txtcCode);
+				txtcCode.setColumns(10);
+				
+						txtcName = new JTextField();
+						txtcName.setBounds(108, 42, 178, 20);
+						panel.add(txtcName);
+						txtcName.setColumns(10);
+						
+								txtcCredits = new JTextField();
+								txtcCredits.setBounds(108, 69, 178, 20);
+								panel.add(txtcCredits);
+								txtcCredits.setColumns(10);
+								
+										JLabel lblNewLabel = new JLabel("Course Code");
+										lblNewLabel.setBounds(11, 14, 87, 14);
+										panel.add(lblNewLabel);
+										
+												JLabel lblCourseName = new JLabel("Course Name");
+												lblCourseName.setBounds(11, 45, 87, 14);
+												panel.add(lblCourseName);
+												
+														JLabel lblCredits = new JLabel("Credits");
+														lblCredits.setBounds(11, 72, 77, 14);
+														panel.add(lblCredits);
+														
+														
+
+														JButton btnRegisterCourse = new JButton("Register Course");
+														btnRegisterCourse.setBounds(36, 100, 144, 23);
+														panel.add(btnRegisterCourse);
+														
+																JButton btnSearchCourse = new JButton("Search Course");
+																btnSearchCourse.setBounds(190, 100, 133, 23);
+																panel.add(btnSearchCourse);
+																
+																		JButton btnDeleteCourse = new JButton("Delete Course");
+																		btnDeleteCourse.setBounds(126, 134, 123, 23);
+																		panel.add(btnDeleteCourse);
+																		
+																				JLabel lblmsgcourse = new JLabel("Message:");
+																				lblmsgcourse.setBounds(36, 168, 287, 14);
+																				panel.add(lblmsgcourse);
+																				
+																						tblcourse = new JTable();
+																						tblcourse.setBounds(11, 197, 375, 20);
+																						panel.add(tblcourse);
+																						
+																								JLabel lblStudentsStudyingThis = new JLabel("Students studying this course");
+																								lblStudentsStudyingThis.setBounds(10, 245, 178, 14);
+																								panel.add(lblStudentsStudyingThis);
+																								
+																										JLabel lblStudentsFinishedWith = new JLabel("Students finished with this course");
+																										lblStudentsFinishedWith.setBounds(211, 245, 196, 14);
+																										panel.add(lblStudentsFinishedWith);
+																										
+																												tblafinishedwithcourse = new JTable();
+																												tblafinishedwithcourse.setBounds(217, 281, 169, 152);
+																												panel.add(tblafinishedwithcourse);
+																												
+																												
+
+																												tblastudyingcourse = new JTable();
+																												tblastudyingcourse.setBounds(11, 281, 162, 152);
+																												panel.add(tblastudyingcourse);
+																												
+																														JLabel lblPercentWi = new JLabel("Percent with highest grade");
+																														lblPercentWi.setBounds(90, 444, 159, 14);
+																														panel.add(lblPercentWi);
+																														
+																																tblpercentofA = new JTable();
+																																tblpercentofA.setBounds(261, 444, 62, 14);
+																																panel.add(tblpercentofA);
+																																
+																																		JButton btnCourseWithHighest = new JButton("Course with highest passed quota  ");
+																																		btnCourseWithHighest.setBounds(36, 500, 239, 23);
+																																		panel.add(btnCourseWithHighest);
+																																		
+																																				tblflow = new JTable();
+																																				tblflow.setBounds(32, 534, 270, 23);
+																																				panel.add(tblflow);
+																																		btnCourseWithHighest.addActionListener(new ActionListener() {
+																																			public void actionPerformed(ActionEvent e) {
+																																			}
+																																		});
+																		btnDeleteCourse.addActionListener(new ActionListener() {
+																			public void actionPerformed(ActionEvent e) {
+																				String ccode = txtcCode.getText();
+																				String msg = "";
+																				msg = CourseView.deleteCourse(ccode);
+																				lblmsgcourse.setText(msg);
+																			}
+																		});
+																btnSearchCourse.addActionListener(new ActionListener() {
+																	public void actionPerformed(ActionEvent e) {
+																		String ccode = txtcCode.getText();
+																		String cname = txtcName.getText();
+																		String creditsString = txtcCredits.getText();
+																		int credits = Integer.parseInt(creditsString);
+																		String msg = "";
+																		msg = CourseView.addCourse(ccode, cname, credits);
+																		lblmsgcourse.setText(msg);
+
+																	}
+																});
+														btnRegisterCourse.addActionListener(new ActionListener() {
+															public void actionPerformed(ActionEvent e) {
+
+																String ccode = txtcCode.getText();
+																String cname = txtcName.getText();
+																String creditsString = txtcCredits.getText();
+																int credits = Integer.parseInt(creditsString);
+																String msg = "";
+																msg = CourseView.addCourse(ccode, cname, credits);
+																lblmsgcourse.setText(msg);
+
+															}
+														});
 		try {
 			for (Course c : CourseController.ReadAllCourses()) {
 				cmbcourse.addItem(c.getCcode());
