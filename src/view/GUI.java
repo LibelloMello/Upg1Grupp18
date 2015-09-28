@@ -119,6 +119,11 @@ public class GUI {
 				String spnr = txtspnr.getText();
 				String sname = "";
 				String saddress = "";
+				
+				while(tablemodelstudents.getRowCount() > 0)
+				{
+					tablemodelstudents.removeRow(0);
+				}
 
 				try {
 					student = StudentView.getStudent(spnr);
@@ -159,6 +164,10 @@ public class GUI {
 				String sname = txtsname.getText();
 				String saddress = txtsaddress.getText();
 				String msg = "";
+				while(tablemodelstudents.getRowCount() > 0)
+				{
+					tablemodelstudents.removeRow(0);
+				}
 
 				try {
 					msg = StudentView.addStudent(spnr, sname, saddress);
@@ -181,11 +190,26 @@ public class GUI {
 		panelstudent.add(btnDeleteStudent);
 		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String spnr = txtspnr.getText();
-				String msg = "";
-				msg = StudentView.deleteStudent(spnr);
-				lblmsgstudent.setText(msg);
-
+				String msg = "";		
+				int selRow = tabelstudent.getSelectedRow();
+				if (selRow != -1) {
+				String spnr = (String) tabelstudent.getValueAt(selRow, 0);
+				while(tablemodelstudents.getRowCount() > 0)
+				{
+					tablemodelstudents.removeRow(0);
+				}
+					try {
+						msg = StudentView.deleteStudent(spnr);
+					
+					} catch (StudentExceptions e1) {
+						msg = e1.getMessage();
+						lblmsgstudent.setText(msg);
+					}
+					lblmsgstudent.setText(msg);
+				}else {
+					lblmsgstudent.setText("Nä");
+				}
+			
 			}
 		});
 
@@ -291,9 +315,10 @@ public class GUI {
 						sgrade = studied.getsGrade();
 					
 
-						Object[] data = {sgrade};
+						/*Object[] data = {sgrade};
 
 						dtm.addRow(data);
+						*/
 						lblFillInGrade.setText(sgrade);
 					} catch (StudentExceptions e2){
 					

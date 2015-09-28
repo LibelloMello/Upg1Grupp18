@@ -22,7 +22,7 @@ public class main {
 
 			
 		try {
-			System.out.print(SharedController.ReadResult("111", "k1").getsGrade());
+			System.out.print(SharedView.readResult("111", "k1").getsGrade());
 		} catch (StudentExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

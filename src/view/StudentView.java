@@ -24,7 +24,7 @@ public class StudentView {
 		return msg;
 	}
 
-	public static String deleteStudent(String spnr) {
+	public static String deleteStudent(String spnr) throws StudentExceptions {
 		String msg = "";
 		Student student;
 		try {
