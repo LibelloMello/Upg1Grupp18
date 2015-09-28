@@ -19,14 +19,13 @@ public class main {
 	public static void main(String[] args) {
 	
 	
-
-			
-		try {
-			System.out.print(SharedView.readResult("111", "k1").getsGrade());
-		} catch (StudentExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+try {
+	System.out.print(ShareAccess.registerStudentToCourse("222", "test"));
+} catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+		
 		
 //	try {
 //		CourseAccess.deleteCourse("ccode");

@@ -20,7 +20,7 @@ public class StudentView {
 		} catch (StudentExceptions e) {
 			msg = "Student already exists";
 		}
-	
+
 		return msg;
 	}
 
@@ -31,27 +31,25 @@ public class StudentView {
 			student = StudentController.ReadStudent(spnr);
 
 			StudentController.Delete(spnr);
-			msg = "Student was deleted";	
-			
-			
+			msg = "Student was deleted";
+
 		} catch (StudentExceptions e) {
 			msg = "No student found";
 		}
-		
 
-		
 		return msg;
 	}
-	
-	public static Student getStudent(String spnr) throws StudentExceptions{
+
+	public static Student getStudent(String spnr) throws StudentExceptions {
 		String msg = "";
 		Student student = null;
 		try {
 			student = StudentController.ReadStudent(spnr);
 			msg = "Student was found";
-			
+
 		} catch (StudentExceptions e) {
-				msg = "Student was not found";	
+			msg = "Student was not found";
+			
 		}
 		return student;
 

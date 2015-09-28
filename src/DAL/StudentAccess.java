@@ -17,6 +17,7 @@ public class StudentAccess {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
+		String msg = "";
 
 		try {
 			con = DbUtil.getConn();
@@ -30,7 +31,7 @@ public class StudentAccess {
 			return null;
 
 		} catch (SQLException e) {
-			throw new StudentExceptions("Hittade ingen student", e);
+			throw new StudentExceptions("Didn't find any student", e);
 
 		} finally {
 
@@ -97,7 +98,7 @@ public class StudentAccess {
 		}
 	}
 
-	public static void registerStudent(Student student)throws StudentExceptions {
+	public static void registerStudent(Student student) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
