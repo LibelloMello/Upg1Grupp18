@@ -43,5 +43,37 @@ public class SharedView {
 		}
 		return studiedList;
 	}
+	public static int readPercentAonCourse(String ccode) throws StudentExceptions {
+		int percentA = 0;
+		try {
+			percentA = SharedController.readPercentA(ccode);
+		}catch (StudentExceptions e) {
+			
+		}
+		return percentA;
+	}
+	public static int registerStudentOnCourse(String spnr, String ccode) throws StudentExceptions {
+		int i = 0;
+		try {
+			i = SharedController.registerStudentOnCourse(spnr, ccode);
+		}catch(StudentExceptions e) {
+			
+		}
+		return i;
+	}
+	public static void deleteStudyingFromCourse(String spnr, String ccode)throws StudentExceptions {
+		try{
+			SharedController.DeleteStudying(spnr, ccode);
+		}catch (StudentExceptions e) {
+			
+		}
+	}
+	public static void registerFinishedStudent(String spnr, String ccode, String grade) throws StudentExceptions {
+		try{
+			SharedController.registerFinishedStudent(spnr, ccode, grade);
+		} catch (StudentExceptions e) {
+			
+		}
+	}
 
 }

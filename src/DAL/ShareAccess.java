@@ -58,7 +58,7 @@ public class ShareAccess {
 
 	}
 
-	public static void deleteFromStudying(String spnr, String ccode) {
+	public static void deleteFromStudying(String spnr, String ccode)throws StudentExceptions {
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.deleteStudying());
@@ -67,7 +67,7 @@ public class ShareAccess {
 			preState.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new StudentExceptions("Unable to delete student");
 		} finally {
 			if (rs != null) {
 				try {
@@ -367,34 +367,37 @@ public class ShareAccess {
 		return false;
 	}
 
-	public static int registerStudentToCourse(String spnr, String ccode) throws SQLException {
+	public static int registerStudentToCourse(String spnr, String ccode) throws StudentExceptions {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-		con = DbUtil.getConn();
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(
+					"SELECT SUM(credits) FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ? GROUP BY spnr UNION SELECT credits FROM Course c WHERE ccode = ?");
+			preState.setString(1, spnr);
+			preState.setString(2, ccode);
+			rs = preState.executeQuery();
+			int totalPoints = 0;
+			int newCredits = 0;
+			while (rs.next()) {
+				totalPoints += rs.getInt(1);
 
-		preState = con.prepareStatement(
-				"SELECT SUM(credits) FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ? GROUP BY spnr UNION SELECT credits FROM Course c WHERE ccode = ?");
-		preState.setString(1, spnr);
-		preState.setString(2, ccode);
-		rs = preState.executeQuery();
-		int totalPoints = 0;
-		int newCredits = 0;
-		while (rs.next()) {
-			totalPoints += rs.getInt(1);
+			}
 
+			if (totalPoints > 45.0) {
+				error = "A student may not read more than 45HP";
+				return 0;
+			} else if (!studentIsActive(spnr, ccode) && !studentHasGrade(spnr, ccode)) {
+				PreparedStatement ps = con.prepareStatement("INSERT INTO Studying VALUES(?, ?)");
+				ps.setString(1, spnr);
+				ps.setString(2, ccode);
+				return ps.executeUpdate();
+			} else
+				return 2; 
+		} catch (SQLException e) {
+			throw new StudentExceptions("Student not found");
 		}
-
-		if (totalPoints > 45.0) {
-			error = "A student may not read more than 45HP";
-			return 0;
-		} else if (!studentIsActive(spnr, ccode) && !studentHasGrade(spnr, ccode)) {
-			PreparedStatement ps = con.prepareStatement("INSERT INTO Studying VALUES(?, ?)");
-			ps.setString(1, spnr);
-			ps.setString(2, ccode);
-			return ps.executeUpdate();
-		} else
-			return 0;
 	}
 
 }

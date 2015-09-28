@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DAL.ShareAccess;
 import controller.CourseController;
+import controller.SharedController;
 import exceptions.CourseExceptions;
 import exceptions.StudentExceptions;
 import model.Course;
@@ -45,7 +46,6 @@ public class GUI {
 	private JTextField txtcCredits;
 	private JTextField txtspnrreg;
 	private JTable tblstudent;
-	private JTable tblgrade;
 	private JTable tblflow;
 	private DefaultTableModel tablemodelstudents;
 	private JTable table;
@@ -103,11 +103,17 @@ public class GUI {
 		panel_1.setLayout(null);
 
 		JComboBox cmbcourse = new JComboBox();
+		try {
+			for (Course c : CourseController.ReadAllCourses())
+				cmbcourse.addItem(c.getCcode());
+		} catch (CourseExceptions e6) {
+			e6.printStackTrace();
+		}
+
 		cmbcourse.setBounds(117, 41, 230, 28);
 		panel_1.add(cmbcourse);
 
 		ButtonGroup buttongroup = new ButtonGroup();
-
 		JScrollPane scrollStudent = new JScrollPane();
 		scrollStudent.setEnabled(false);
 		scrollStudent.setBounds(37, 185, 286, 57);
@@ -337,17 +343,25 @@ public class GUI {
 		panel_1.add(lblStudentsGrade);
 
 		JButton btnApply = new JButton("Apply");
-		btnApply.setBounds(145, 194, 97, 23);
+		btnApply.setBounds(10, 190, 97, 23);
 		panel_1.add(btnApply);
-
-		tblgrade = new JTable();
-		tblgrade.setBounds(270, 160, 77, 23);
-		panel_1.add(tblgrade);
 
 		JRadioButton rdbtnregstudied = new JRadioButton("Register studied");
 		rdbtnregstudied.setBounds(10, 130, 188, 23);
 		panel_1.add(rdbtnregstudied);
 		buttongroup.add(rdbtnregstudied);
+		
+		JLabel lblGrade = new JLabel("");
+		lblGrade.setBounds(290, 160, 46, 14);
+		panel_1.add(lblGrade);
+		
+		JLabel lblMessage_2 = new JLabel("Message:");
+		lblMessage_2.setBounds(10, 224, 46, 14);
+		panel_1.add(lblMessage_2);
+		
+		JLabel lblapplymsg = new JLabel("");
+		lblapplymsg.setBounds(61, 224, 158, 14);
+		panel_1.add(lblapplymsg);
 		rdbtnregstudied.addActionListener(new ActionListener() {
 
 			@Override
@@ -363,19 +377,53 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				String ccode = (String) cmbcourse.getSelectedItem();
 				String spnr = txtspnr.getText();
-				String sgrade = "";
+				String sgrade = (String) cmbgrade.getSelectedItem();
 				String msg = "";
 				Studied studied = null;
-				DefaultTableModel dtm = new DefaultTableModel();
-				tblgrade.setModel(dtm);
+				
+				if (rdbtnregstudent.isSelected()) {
+					int i = 0;
+					try {
+						i = SharedView.registerStudentOnCourse(spnr, ccode);
+					} catch (StudentExceptions e1) {
+						lblapplymsg.setText(Integer.toString(i));
+					}
+					lblapplymsg.setText(Integer.toString(i));
+				}
+				if (rdbtnremovestudentfrcourse.isSelected()) {
+					try {
+						SharedView.deleteStudyingFromCourse(spnr, ccode);
+						lblapplymsg.setText("Fixa (funka)");
+					}catch(StudentExceptions e6) {
+						lblapplymsg.setText("fixa, fungerade inte");
+					}
+				}
+				if (rdbtnregstudied.isSelected()) {
+					try {
+						SharedView.registerFinishedStudent(spnr, ccode, sgrade);
+						lblapplymsg.setText("Ja");
+					}catch(StudentExceptions e6) {
+						lblapplymsg.setText("Nej");
+					}
+				}
+				if (rdbtnShowStudentsResult.isSelected()) {
+					Studied studied1 =  new Studied();
+					try {
+						studied1 = SharedView.readResult(spnr, ccode);
+						if (studied1 == null) {
+							lblapplymsg.setText("Found no result");
+						}
+						else{
+							lblGrade.setText(studied1.getsGrade());
+						}
+					}catch(StudentExceptions e7) {
+						lblapplymsg.setText(msg);
+					}
+				}
+				
+				
 
-				/*
-				 * if (rdbtnregstudent.isSelected()) { try { msg =
-				 * SharedView.(spnr); } catch (StudentExceptions e1) { msg =
-				 * e1.getMessage(); lblmsgstudent.setText(msg); }
-				 * 
-				 * }
-				 */
+			
 
 			}
 		});
@@ -481,11 +529,11 @@ public class GUI {
 
 		tablecourse = new JTable(tablemodelcourse);
 		scrollcourse.setViewportView(tablecourse);
-		
+
 		JLabel lblpercent = new JLabel("");
-		lblpercent.setBounds(220, 458, 46, 14);
+		lblpercent.setBounds(256, 458, 46, 14);
 		panel.add(lblpercent);
-		
+
 		btnCourseWithHighest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -501,6 +549,13 @@ public class GUI {
 					}
 					try {
 						msg = CourseView.deleteCourse(ccode);
+						try {
+							cmbcourse.removeAllItems();
+							for (Course c : CourseController.ReadAllCourses())
+								cmbcourse.addItem(c.getCcode());
+						} catch (CourseExceptions e6) {
+							e6.printStackTrace();
+						}
 					} catch (CourseExceptions e5) {
 						msg = e5.getMessage();
 						lblmsgcourse.setText(msg);
@@ -521,7 +576,7 @@ public class GUI {
 				String msg = "";
 				List<Studying> studyingList = null;
 				List<Studied> studiedList = null;
-			
+				int percentA;
 
 				while (tablemodelcourse.getRowCount() > 0) {
 					tablemodelcourse.removeRow(0);
@@ -543,44 +598,49 @@ public class GUI {
 						credits = c.getCredits();
 						Object[] data = { ccode, cname, credits };
 						tablemodelcourse.addRow(data);
-						
+
+						try {
+							percentA = SharedView.readPercentAonCourse(ccode);
+							String a;
+							a = Integer.toString(percentA);
+							lblpercent.setText(a + "%");
+
+						} catch (StudentExceptions e5) {
+							e5.getMessage();
+						}
+
 						try {
 							studiedList = SharedView.readAllFinishedStudents(ccode);
 						} catch (StudentExceptions e1) {
-							
+
 							e1.printStackTrace();
 						}
-						for (int i=0; i<studiedList.size(); i++){
-						String spnr = studiedList.get(i).getsPnr();
-						String grade = studiedList.get(i).getsGrade();
-									
-							Object[] data2 = {spnr, grade};
-							
+						for (int i = 0; i < studiedList.size(); i++) {
+							String spnr = studiedList.get(i).getsPnr();
+							String grade = studiedList.get(i).getsGrade();
+
+							Object[] data2 = { spnr, grade };
+
 							tablemodelstudied.addRow(data2);
-						
+
 						}
 
-						
-						
-							try {
-								studyingList = SharedView.readAllStudentsOnCourse(ccode);
-							} catch (StudentExceptions e1) {
-								
-								e1.printStackTrace();
-							}
-							for (int i=0; i<studyingList.size(); i++){
-							String spnr = studyingList.get(i).getSpnr();
-										
-								Object[] data2 = {spnr};
-								
-								tablemodelstudying.addRow(data2);
-							
-							}
-							
-					}
-						
+						try {
+							studyingList = SharedView.readAllStudentsOnCourse(ccode);
+						} catch (StudentExceptions e1) {
 
-					
+							e1.printStackTrace();
+						}
+						for (int i = 0; i < studyingList.size(); i++) {
+							String spnr = studyingList.get(i).getSpnr();
+
+							Object[] data2 = { spnr };
+
+							tablemodelstudying.addRow(data2);
+
+						}
+
+					}
 
 				} catch (CourseExceptions e3) {
 					msg = e3.getMessage();

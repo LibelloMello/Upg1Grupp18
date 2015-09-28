@@ -19,12 +19,14 @@ public class main {
 	public static void main(String[] args) {
 	
 	
-try {
-	System.out.print(ShareAccess.registerStudentToCourse("222", "test"));
-} catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
+
+	try {
+		System.out.print(SharedView.registerStudentOnCourse("555", "k67"));
+	} catch (StudentExceptions e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
 		
 		
 //	try {
