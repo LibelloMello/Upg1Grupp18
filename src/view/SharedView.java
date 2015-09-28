@@ -9,19 +9,19 @@ import model.Studied;
 
 public class SharedView {
 
-	public static String readResult(String sPnr, String cCode) {
+	public static Studied readResult(String sPnr, String cCode) throws StudentExceptions {
 		String msg = "";
 		Studied s = new Studied();
 
 		try {
-
-			controller.SharedController.ReadResult(sPnr, cCode);
+			
+			s = controller.SharedController.ReadResult(sPnr, cCode);
 			msg = "Found student";
 		} catch (StudentExceptions e) {
 			msg = "Found no student";
 		}
 
-		return msg;
+		return s;
 	}
 
 }

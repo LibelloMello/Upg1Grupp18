@@ -13,6 +13,7 @@ import exceptions.CourseExceptions;
 import exceptions.StudentExceptions;
 import model.Course;
 import model.Student;
+import model.Studied;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -110,7 +111,7 @@ public class GUI {
 		txtspnrreg.setColumns(10);
 
 		JButton btnSearchStudentn = new JButton("Search Student");
-		btnSearchStudentn.setBounds(86, 116, 107, 23);
+		btnSearchStudentn.setBounds(63, 116, 130, 23);
 		panelstudent.add(btnSearchStudentn);
 		btnSearchStudentn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -138,19 +139,19 @@ public class GUI {
 		});
 
 		JLabel lblStudentName = new JLabel("Student Name");
-		lblStudentName.setBounds(10, 37, 68, 14);
+		lblStudentName.setBounds(10, 37, 95, 14);
 		panelstudent.add(lblStudentName);
 
 		JLabel lblStudentAddress = new JLabel("StudentiAddress");
-		lblStudentAddress.setBounds(10, 65, 80, 14);
+		lblStudentAddress.setBounds(10, 65, 95, 14);
 		panelstudent.add(lblStudentAddress);
 
 		JLabel lblmsgstudent = new JLabel("Message:");
-		lblmsgstudent.setBounds(10, 100, 46, 14);
+		lblmsgstudent.setBounds(10, 100, 144, 14);
 		panelstudent.add(lblmsgstudent);
 
 		JButton btnRegisterStudent = new JButton("Register Student");
-		btnRegisterStudent.setBounds(210, 116, 113, 23);
+		btnRegisterStudent.setBounds(210, 116, 130, 23);
 		panelstudent.add(btnRegisterStudent);
 		btnRegisterStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,11 +173,11 @@ public class GUI {
 		});
 
 		JLabel lblStudentPnr = new JLabel("Student ID");
-		lblStudentPnr.setBounds(10, 9, 52, 14);
+		lblStudentPnr.setBounds(10, 9, 80, 14);
 		panelstudent.add(lblStudentPnr);
 
 		JButton btnDeleteStudent = new JButton("Delete Student");
-		btnDeleteStudent.setBounds(145, 150, 105, 23);
+		btnDeleteStudent.setBounds(141, 151, 119, 23);
 		panelstudent.add(btnDeleteStudent);
 		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -189,20 +190,20 @@ public class GUI {
 		});
 
 		txtsaddress = new JTextField();
-		txtsaddress.setBounds(103, 62, 159, 20);
+		txtsaddress.setBounds(129, 62, 159, 20);
 		panelstudent.add(txtsaddress);
 		txtsaddress.setColumns(10);
 
 		txtspnr = new JTextField();
-		txtspnr.setBounds(103, 6, 159, 20);
+		txtspnr.setBounds(129, 6, 159, 20);
 		panelstudent.add(txtspnr);
 		txtspnr.setColumns(10);
 
 		txtsname = new JTextField();
-		txtsname.setBounds(103, 34, 159, 20);
+		txtsname.setBounds(129, 34, 159, 20);
 		panelstudent.add(txtsname);
 		txtsname.setColumns(10);
-		/**
+		/*
 		 * JScrollPane scrollStudent = new JScrollPane();
 		 * scrollStudent.setBounds(37, 185, 286, 57);
 		 * panelstudent.add(scrollStudent);
@@ -222,7 +223,7 @@ public class GUI {
 		 * 
 		 * txtspnrreg = new JTextField(); txtspnrreg.setBounds(117, 7, 230, 23);
 		 * panel_1.add(txtspnrreg); txtspnrreg.setColumns(10);
-		 **/
+		 */
 
 		JRadioButton rdbtnregstudent = new JRadioButton("Register student on course");
 		rdbtnregstudent.setBounds(10, 78, 209, 23);
@@ -273,22 +274,44 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				String ccode = (String) cmbcourse.getSelectedItem();
 				String spnr = txtspnr.getText();
+				String sgrade = "";
 				String msg = "";
+				Studied studied = null;
 				DefaultTableModel dtm = new DefaultTableModel();
 				tblgrade.setModel(dtm);
+			
+				
+				
+				
 				if (rdbtnShowStudentsResult.isSelected()) {
 					try {
-						msg = ShareAccess.getResult(spnr, ccode).getsGrade();
-						// dtm.ad;
-					} catch (StudentExceptions e1) {
+						studied = SharedView.readResult(spnr, ccode);
 
-					}
+					
+						sgrade = studied.getsGrade();
+					
+
+						Object[] data = {sgrade};
+
+						dtm.addRow(data);
+						lblFillInGrade.setText(sgrade);
+					} catch (StudentExceptions e2){
+					
+						
+						
+					
 					lblmsgstudent.setText(msg);
 
 				}
+				/*if (rdbtnregstudent,isSelected()) {
+					try {
+						msg = ;
+					}
+				*/}
 
 			}
-		});
+		}
+		);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(398, 0, 429, 582);
@@ -419,7 +442,7 @@ public class GUI {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		public void resetStudentTables() {
+		/*public void resetStudentTables() {
 			tabelstudents.clearSelection();
 			tblCourses.setModel(createTableModel("Courses"));
 			tblCoursesActiveStudents.setModel(new DefaultTableModel());
@@ -428,6 +451,7 @@ public class GUI {
 			tfCoursesThroughput.setText("");
 
 	}
+	*/
 	
 	}
 }

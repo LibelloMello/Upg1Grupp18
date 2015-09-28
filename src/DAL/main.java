@@ -19,13 +19,15 @@ public class main {
 	public static void main(String[] args) {
 	
 	
+
+			
 		try {
-			System.out.println(StudentView.getStudent("111"));
+			System.out.print(SharedController.ReadResult("111", "k1").getsGrade());
 		} catch (StudentExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
+		
 //	try {
 //		CourseAccess.deleteCourse("ccode");
 //	} catch (CourseExceptions e) {
