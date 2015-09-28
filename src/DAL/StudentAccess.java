@@ -154,7 +154,7 @@ public class StudentAccess {
 			preState.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new StudentExceptions("No student found");
 		} finally {
 			if (rs != null) {
 				try {

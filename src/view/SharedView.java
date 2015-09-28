@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import controller.SharedController;
 import exceptions.CourseExceptions;
 import exceptions.StudentExceptions;
@@ -22,6 +24,24 @@ public class SharedView {
 		}
 
 		return s;
+	}
+	public static List<Studying> readAllStudentsOnCourse(String ccode) throws StudentExceptions {
+		List<Studying> studyingList = null;
+		try {
+			studyingList = SharedController.ReadAllStudying(ccode);
+		}catch (StudentExceptions e) {
+			
+		}
+		return studyingList;
+	}
+	public static List<Studied> readAllFinishedStudents(String ccode) throws StudentExceptions {
+		List<Studied> studiedList = null;
+		try {
+			studiedList = SharedController.ReadAllStudied(ccode);
+		}catch (StudentExceptions e) {
+			
+		}
+		return studiedList;
 	}
 
 }

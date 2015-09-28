@@ -29,7 +29,6 @@ public class StudentView {
 		Student student;
 		try {
 			student = StudentController.ReadStudent(spnr);
-
 			StudentController.Delete(spnr);
 			msg = "Student was deleted";
 

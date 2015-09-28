@@ -30,7 +30,7 @@ public class CourseAccess {
 			return null;
 
 		} catch (SQLException e) {
-			throw new CourseExceptions("Hittade ingen kurs", e);
+			throw new CourseExceptions("Didn´t find course", e);
 
 		} finally {
 
@@ -113,8 +113,7 @@ public class CourseAccess {
 			preState.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.print("Tjena, läget?");
-			throw new CourseExceptions("Hittade ingen kurs", e);
+			throw new CourseExceptions("Didn't find a course", e);
 
 		} finally {
 			if (rs != null) {
@@ -158,7 +157,7 @@ public class CourseAccess {
 			
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CourseExceptions("Course already exists", e);
 		} finally {
 			if (rs != null) {
 				try {

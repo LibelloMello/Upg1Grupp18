@@ -17,58 +17,6 @@ public class ShareAccess {
 	static ResultSet rs = null;
 	static String error = "";
 
-	/*
-	 * public int registerStudentOnCourse(String pnr, String ccode, Double
-	 * points) throws StudentExceptions { PreparedStatement psPoints =
-	 * con.prepareStatement("SELECT SUM(points) FROM Studying s, Course c " +
-	 * "WHERE s.ccode = c.ccode AND pnr = ? " + "GROUP BY pnr");
-	 * psPoints.setString(1, pnr); ResultSet rs = psPoints.executeQuery();
-	 * double totalPoints = 0.0; while (rs.next()) { totalPoints =
-	 * rs.getDouble(1); } totalPoints += points;
-	 * 
-	 * if (totalPoints > 45.0) { StudentExceptions e =
-	 * "En student kan inte läsa mer än 45 poäng samtidigt."; return 0; } else
-	 * if (!studentIsActive(pnr, ccode) && !studentHasGrade(pnr, ccode)) {
-	 * PreparedStatement ps = con.prepareStatement(
-	 * "INSERT INTO Studying VALUES(?, ?)"); ps.setString(1, pnr);
-	 * ps.setString(2, ccode); return ps.executeUpdate(); } else return 0; }
-	 */
-
-	/*
-	 * public static void registerStudentOnCourse(String sPnr, String cCode)
-	 * throws StudentExceptions { Connection con = null; PreparedStatement
-	 * preState = null; ResultSet rs = null; int k = 0;
-	 * 
-	 * try { con = DbUtil.getConn(); preState =
-	 * con.prepareStatement(ShareAccess.getTotalCredits(sPnr));
-	 * preState.setString(1, sPnr); rs = preState.executeQuery();
-	 * 
-	 * while (rs.next()) { k = rs.getInt(1); // g = Integer.parseInt(k); }
-	 * 
-	 * System.out.print("Vafan"); } catch (SQLException e) {
-	 * e.printStackTrace(); }
-	 * 
-	 * if (k > 46) { try { con = DbUtil.getConn(); preState =
-	 * con.prepareStatement(DbUtil.registerStudentOnCourse());
-	 * preState.setString(1, sPnr); preState.setString(2, cCode);
-	 * preState.executeUpdate();
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace();
-	 * 
-	 * }
-	 * 
-	 * } else { try { System.out.print("Sorry mannen" + k); } finally { if (rs
-	 * != null) { try { rs.close(); } catch (SQLException e) { } }
-	 * 
-	 * if (preState != null) { try { preState.close(); } catch (SQLException e)
-	 * { } }
-	 * 
-	 * if (con != null) { try { preState.close(); } catch (SQLException e) { } }
-	 * } }
-	 * 
-	 * }
-	 */
-
 	public static void registerStudied(String sPnr, String cCode, String sGrade) {
 
 		Connection con = null;
@@ -390,14 +338,15 @@ public class ShareAccess {
 		}
 		return false;
 	}
-	
+
 	public static ResultSet getStudentStudied(String pnr) throws SQLException {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 		con = DbUtil.getConn();
-		
-		preState = con.prepareStatement("SELECT cname AS Kursnamn, c.ccode AS Kurskod, grade AS Betyg FROM Studied s, Course c WHERE s.ccode = c.ccode AND spnr = ?");
+
+		preState = con.prepareStatement(
+				"SELECT cname AS Kursnamn, c.ccode AS Kurskod, grade AS Betyg FROM Studied s, Course c WHERE s.ccode = c.ccode AND spnr = ?");
 		preState.setString(1, pnr);
 		return preState.executeQuery();
 	}
@@ -407,7 +356,7 @@ public class ShareAccess {
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 		con = DbUtil.getConn();
-		
+
 		rs = getStudentStudied(pnr);
 		while (rs.next()) {
 			if (rs.getString(2).equals(ccode)) {
@@ -423,8 +372,9 @@ public class ShareAccess {
 		PreparedStatement preState = null;
 		ResultSet rs = null;
 		con = DbUtil.getConn();
-		
-		preState = con.prepareStatement("SELECT SUM(credits) FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ? GROUP BY spnr UNION SELECT credits FROM Course c WHERE ccode = ?");
+
+		preState = con.prepareStatement(
+				"SELECT SUM(credits) FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ? GROUP BY spnr UNION SELECT credits FROM Course c WHERE ccode = ?");
 		preState.setString(1, spnr);
 		preState.setString(2, ccode);
 		rs = preState.executeQuery();
@@ -432,9 +382,8 @@ public class ShareAccess {
 		int newCredits = 0;
 		while (rs.next()) {
 			totalPoints += rs.getInt(1);
-	
+
 		}
-		
 
 		if (totalPoints > 45.0) {
 			error = "A student may not read more than 45HP";

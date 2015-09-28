@@ -18,8 +18,8 @@ public class SharedController {
 		ShareAccess.registerStudentOnCourse(sPnr, cCode);
 	}
 */
-	public static List<Student> ReadAllStudied() throws StudentExceptions {
-		return StudentAccess.getAllStudents();
+	public static List<Studied> ReadAllStudied(String ccode) throws StudentExceptions {
+		return ShareAccess.getAllStudied(ccode);
 	}
 
 	public static void DeleteStudying(String sPnr) throws StudentExceptions {
@@ -27,6 +27,10 @@ public class SharedController {
 	}
 	public static Studied ReadResult (String sPnr, String cCode) throws StudentExceptions {
 		return ShareAccess.getResult(sPnr, cCode);
+	}
+	
+	public static List<Studying> ReadAllStudying(String ccode) throws StudentExceptions {
+		return ShareAccess.getAllStudying(ccode);
 	}
 
 }

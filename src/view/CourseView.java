@@ -9,7 +9,7 @@ import model.Student;
 
 public class CourseView {
 
-	public static String addCourse(String ccode, String cname, int credits) {
+	public static String addCourse(String ccode, String cname, int credits) throws CourseExceptions {
 		String msg = "";
 
 		Course c = new Course();
@@ -19,36 +19,43 @@ public class CourseView {
 
 		try {
 			controller.CourseController.CreateCourse(c);
-			msg = "gick";
+			msg = "Course registered";
 
 		} catch (CourseExceptions e) {
-			msg = "Gick inte";
+			msg = "Course already exists";
 		}
 
 		return msg;
 	}
-	public static String deleteCourse(String ccode) {
+
+	public static String deleteCourse(String ccode) throws CourseExceptions {
 		String msg = "";
 		Course course;
 		try {
 			course = CourseController.ReadCourse(ccode);
-
 			CourseController.DeleteCourse(ccode);
-			msg = "Course was deleted";	
-			
-			
+			msg = "Course was deleted";
+
 		} catch (CourseExceptions e) {
 			msg = "No course found";
 		}
-		
 
-		
 		return msg;
 	}
-	
-	
 
+	public static Course getCourse(String cCode) throws CourseExceptions {
+		String msg = "";
+		Course course = null;
+		try {
+			course = CourseController.ReadCourse(cCode);
+			msg = "Course was found";
 
+		} catch (CourseExceptions e) {
+			msg = "Course was not found";
 
+		}
+		return course;
+
+	}
 
 }

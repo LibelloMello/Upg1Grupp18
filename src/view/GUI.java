@@ -14,12 +14,14 @@ import exceptions.StudentExceptions;
 import model.Course;
 import model.Student;
 import model.Studied;
+import model.Studying;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -44,9 +46,7 @@ public class GUI {
 	private JTextField txtspnrreg;
 	private JTable tblstudent;
 	private JTable tblgrade;
-	private JTable tblpercentofA;
 	private JTable tblflow;
-	private JTable tblcourse;
 	private DefaultTableModel tablemodelstudents;
 	private JTable table;
 	private JTable tabelstudent;
@@ -54,6 +54,8 @@ public class GUI {
 	private JTable tblfinished;
 	private DefaultTableModel tablemodelstudying;
 	private DefaultTableModel tablemodelstudied;
+	private JTable tablecourse;
+	private DefaultTableModel tablemodelcourse;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -91,8 +93,8 @@ public class GUI {
 		lblStudentAddress.setBounds(10, 65, 95, 14);
 		panelstudent.add(lblStudentAddress);
 
-		JLabel lblmsgstudent = new JLabel("Message:");
-		lblmsgstudent.setBounds(10, 100, 144, 14);
+		JLabel lblmsgstudent = new JLabel("");
+		lblmsgstudent.setBounds(68, 93, 144, 14);
 		panelstudent.add(lblmsgstudent);
 
 		JPanel panel_1 = new JPanel();
@@ -136,28 +138,24 @@ public class GUI {
 				String sname = "";
 				String saddress = "";
 				String msg = "";
-				/*
-				 * while (tablemodelstudents.getRowCount() > 0) {
-				 * tablemodelstudents.removeRow(0); }
-				 */
+
+				while (tablemodelstudents.getRowCount() > 0) {
+					tablemodelstudents.removeRow(0);
+				}
+
 				try {
 
 					student = StudentView.getStudent(spnr);
 
 					if (student == null) {
 						lblmsgstudent.setText("No student found");
-
 					} else {
+
 						spnr = student.getSpnr();
 						sname = student.getsName();
 						saddress = student.getsAddress();
-
 						Object[] data = { spnr, sname, saddress };
-
 						tablemodelstudents.addRow(data);
-
-						lblmsgstudent.setText(student.getsName());
-
 					}
 
 				} catch (StudentExceptions e2) {
@@ -170,10 +168,11 @@ public class GUI {
 		});
 
 		JButton btnRegisterStudent = new JButton("Register Student");
-		btnRegisterStudent.setBounds(210, 116, 130, 23);
+		btnRegisterStudent.setBounds(209, 116, 130, 23);
 		panelstudent.add(btnRegisterStudent);
 		btnRegisterStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				String spnr = txtspnr.getText();
 				String sname = txtsname.getText();
 				String saddress = txtsaddress.getText();
@@ -199,10 +198,11 @@ public class GUI {
 		panelstudent.add(lblStudentPnr);
 
 		JButton btnDeleteStudent = new JButton("Delete Student");
-		btnDeleteStudent.setBounds(141, 151, 119, 23);
+		btnDeleteStudent.setBounds(63, 151, 130, 23);
 		panelstudent.add(btnDeleteStudent);
 		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				String msg = "";
 				int selRow = tabelstudent.getSelectedRow();
 				if (selRow != -1) {
@@ -219,7 +219,7 @@ public class GUI {
 					}
 					lblmsgstudent.setText(msg);
 				} else {
-					lblmsgstudent.setText("Nä");
+					lblmsgstudent.setText("Select a student");
 				}
 
 			}
@@ -250,6 +250,10 @@ public class GUI {
 		txtsname.setBounds(129, 34, 159, 20);
 		panelstudent.add(txtsname);
 		txtsname.setColumns(10);
+
+		JLabel lblMessage = new JLabel("Message: ");
+		lblMessage.setBounds(10, 93, 69, 14);
+		panelstudent.add(lblMessage);
 		/*
 		 * JScrollPane scrollStudent = new JScrollPane();
 		 * scrollStudent.setBounds(37, 185, 286, 57);
@@ -382,67 +386,59 @@ public class GUI {
 		panel.setLayout(null);
 
 		txtcCode = new JTextField();
-		txtcCode.setBounds(108, 11, 178, 20);
+		txtcCode.setBounds(108, 8, 178, 20);
 		panel.add(txtcCode);
 		txtcCode.setColumns(10);
 
 		txtcName = new JTextField();
-		txtcName.setBounds(108, 42, 178, 20);
+		txtcName.setBounds(108, 33, 178, 20);
 		panel.add(txtcName);
 		txtcName.setColumns(10);
 
 		txtcCredits = new JTextField();
-		txtcCredits.setBounds(108, 69, 178, 20);
+		txtcCredits.setBounds(108, 57, 178, 20);
 		panel.add(txtcCredits);
 		txtcCredits.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("Course Code");
-		lblNewLabel.setBounds(11, 14, 87, 14);
+		lblNewLabel.setBounds(11, 11, 87, 14);
 		panel.add(lblNewLabel);
 
 		JLabel lblCourseName = new JLabel("Course Name");
-		lblCourseName.setBounds(11, 45, 87, 14);
+		lblCourseName.setBounds(11, 36, 87, 14);
 		panel.add(lblCourseName);
 
 		JLabel lblCredits = new JLabel("Credits");
-		lblCredits.setBounds(11, 72, 77, 14);
+		lblCredits.setBounds(11, 60, 77, 14);
 		panel.add(lblCredits);
 
 		JButton btnRegisterCourse = new JButton("Register Course");
-		btnRegisterCourse.setBounds(36, 100, 144, 23);
+		btnRegisterCourse.setBounds(210, 120, 144, 23);
 		panel.add(btnRegisterCourse);
 
 		JButton btnSearchCourse = new JButton("Search Course");
-		btnSearchCourse.setBounds(190, 100, 133, 23);
+		btnSearchCourse.setBounds(46, 120, 133, 23);
 		panel.add(btnSearchCourse);
 
 		JButton btnDeleteCourse = new JButton("Delete Course");
-		btnDeleteCourse.setBounds(126, 134, 123, 23);
+		btnDeleteCourse.setBounds(46, 154, 133, 23);
 		panel.add(btnDeleteCourse);
 
-		JLabel lblmsgcourse = new JLabel("Message:");
-		lblmsgcourse.setBounds(36, 168, 287, 14);
+		JLabel lblmsgcourse = new JLabel("");
+		lblmsgcourse.setBounds(79, 97, 287, 14);
 		panel.add(lblmsgcourse);
 
-		tblcourse = new JTable();
-		tblcourse.setBounds(11, 197, 375, 20);
-		panel.add(tblcourse);
-
 		JLabel lblStudentsStudyingThis = new JLabel("Students studying this course");
-		lblStudentsStudyingThis.setBounds(10, 245, 178, 14);
+		lblStudentsStudyingThis.setBounds(11, 278, 178, 14);
 		panel.add(lblStudentsStudyingThis);
 
 		JLabel lblStudentsFinishedWith = new JLabel("Students finished with this course");
-		lblStudentsFinishedWith.setBounds(211, 245, 196, 14);
+		lblStudentsFinishedWith.setBounds(210, 278, 196, 14);
 		panel.add(lblStudentsFinishedWith);
 
 		JLabel lblPercentWi = new JLabel("Percent with highest grade");
-		lblPercentWi.setBounds(90, 444, 159, 14);
+		lblPercentWi.setBounds(79, 458, 159, 14);
 		panel.add(lblPercentWi);
-
-		tblpercentofA = new JTable();
-		tblpercentofA.setBounds(261, 444, 62, 14);
-		panel.add(tblpercentofA);
 
 		JButton btnCourseWithHighest = new JButton("Course with highest passed quota  ");
 		btnCourseWithHighest.setBounds(36, 500, 239, 23);
@@ -453,43 +449,143 @@ public class GUI {
 		panel.add(tblflow);
 
 		JScrollPane scrollpanestudying = new JScrollPane();
-		scrollpanestudying.setBounds(11, 285, 169, 137);
+		scrollpanestudying.setBounds(11, 303, 169, 137);
 		panel.add(scrollpanestudying);
 
-		String[] headerStudying = { "Student ID", "Name", "Address" };
-		tablemodelstudents = new DefaultTableModel(headerStudents, 0);
+		String[] headerStudying = { "Student ID" };
+		tablemodelstudying = new DefaultTableModel(headerStudying, 0);
 
-		tblstudying = new JTable();
+		tblstudying = new JTable(tablemodelstudying);
 		scrollpanestudying.setViewportView(tblstudying);
 
 		JScrollPane scrollpanelfinished = new JScrollPane();
-		scrollpanelfinished.setBounds(211, 285, 196, 137);
+		scrollpanelfinished.setBounds(210, 303, 196, 137);
 		panel.add(scrollpanelfinished);
 
-		tblfinished = new JTable();
+		String[] headerStudied = { "Student ID", "Grade" };
+		tablemodelstudied = new DefaultTableModel(headerStudied, 0);
+
+		tblfinished = new JTable(tablemodelstudied);
 		scrollpanelfinished.setViewportView(tblfinished);
+
+		JLabel lblMessage_1 = new JLabel("Message:");
+		lblMessage_1.setBounds(11, 97, 69, 14);
+		panel.add(lblMessage_1);
+
+		JScrollPane scrollcourse = new JScrollPane();
+		scrollcourse.setBounds(46, 188, 373, 61);
+		panel.add(scrollcourse);
+
+		String[] headerCourse = { "Course ID", "Course Name", "Credits" };
+		tablemodelcourse = new DefaultTableModel(headerCourse, 0);
+
+		tablecourse = new JTable(tablemodelcourse);
+		scrollcourse.setViewportView(tablecourse);
+		
+		JLabel lblpercent = new JLabel("");
+		lblpercent.setBounds(220, 458, 46, 14);
+		panel.add(lblpercent);
+		
 		btnCourseWithHighest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnDeleteCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String ccode = txtcCode.getText();
 				String msg = "";
-				msg = CourseView.deleteCourse(ccode);
-				lblmsgcourse.setText(msg);
+				int selRow = tablecourse.getSelectedRow();
+				if (selRow != -1) {
+					String ccode = (String) tablecourse.getValueAt(selRow, 0);
+					while (tablemodelcourse.getRowCount() > 0) {
+						tablemodelcourse.removeRow(0);
+					}
+					try {
+						msg = CourseView.deleteCourse(ccode);
+					} catch (CourseExceptions e5) {
+						msg = e5.getMessage();
+						lblmsgcourse.setText(msg);
+					}
+					lblmsgcourse.setText(msg);
+				} else {
+					lblmsgcourse.setText("Select a course");
+				}
+
 			}
 		});
 		btnSearchCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Course c = null;
 				String ccode = txtcCode.getText();
-				String cname = txtcName.getText();
-				String creditsString = txtcCredits.getText();
-				int credits = Integer.parseInt(creditsString);
+				String cname;
+				int credits;
 				String msg = "";
-				msg = CourseView.addCourse(ccode, cname, credits);
-				lblmsgcourse.setText(msg);
+				List<Studying> studyingList = null;
+				List<Studied> studiedList = null;
+			
 
+				while (tablemodelcourse.getRowCount() > 0) {
+					tablemodelcourse.removeRow(0);
+				}
+				while (tablemodelstudying.getRowCount() > 0) {
+					tablemodelstudying.removeRow(0);
+				}
+				while (tablemodelstudied.getRowCount() > 0) {
+					tablemodelstudied.removeRow(0);
+				}
+				try {
+					c = CourseView.getCourse(ccode);
+
+					if (c == null) {
+						lblmsgcourse.setText("No course Found");
+					} else {
+						ccode = c.getCcode();
+						cname = c.getCname();
+						credits = c.getCredits();
+						Object[] data = { ccode, cname, credits };
+						tablemodelcourse.addRow(data);
+						
+						try {
+							studiedList = SharedView.readAllFinishedStudents(ccode);
+						} catch (StudentExceptions e1) {
+							
+							e1.printStackTrace();
+						}
+						for (int i=0; i<studiedList.size(); i++){
+						String spnr = studiedList.get(i).getsPnr();
+						String grade = studiedList.get(i).getsGrade();
+									
+							Object[] data2 = {spnr, grade};
+							
+							tablemodelstudied.addRow(data2);
+						
+						}
+
+						
+						
+							try {
+								studyingList = SharedView.readAllStudentsOnCourse(ccode);
+							} catch (StudentExceptions e1) {
+								
+								e1.printStackTrace();
+							}
+							for (int i=0; i<studyingList.size(); i++){
+							String spnr = studyingList.get(i).getSpnr();
+										
+								Object[] data2 = {spnr};
+								
+								tablemodelstudying.addRow(data2);
+							
+							}
+							
+					}
+						
+
+					
+
+				} catch (CourseExceptions e3) {
+					msg = e3.getMessage();
+					lblmsgcourse.setText(msg);
+				}
 			}
 		});
 		btnRegisterCourse.addActionListener(new ActionListener() {
@@ -500,30 +596,19 @@ public class GUI {
 				String creditsString = txtcCredits.getText();
 				int credits = Integer.parseInt(creditsString);
 				String msg = "";
-				msg = CourseView.addCourse(ccode, cname, credits);
+				while (tablemodelcourse.getRowCount() > 0) {
+					tablemodelcourse.removeRow(0);
+				}
+				try {
+					msg = CourseView.addCourse(ccode, cname, credits);
+				} catch (CourseExceptions e4) {
+					msg = e4.getMessage();
+					lblmsgcourse.setText(msg);
+				}
 				lblmsgcourse.setText(msg);
 
 			}
 		});
-		try {
-			for (Course c : CourseController.ReadAllCourses()) {
-				cmbcourse.addItem(c.getCcode());
-
-			}
-		} catch (CourseExceptions e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		/*
-		 * public void resetStudentTables() { tabelstudents.clearSelection();
-		 * tblCourses.setModel(createTableModel("Courses"));
-		 * tblCoursesActiveStudents.setModel(new DefaultTableModel());
-		 * tblCoursesStudentsWithGrade.setModel(new DefaultTableModel());
-		 * tfCoursesStudentsWithAPercentage.setText("");
-		 * tfCoursesThroughput.setText("");
-		 * 
-		 * }
-		 */
 
 	}
 }
