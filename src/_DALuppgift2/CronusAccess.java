@@ -138,7 +138,7 @@ public class CronusAccess {
 	}
 	public static Vector<Vector<String>> getConstraints() throws SQLException {
 		Connection con = DbUtil.getConn();
-		int col = 5;
+		int col = 4;
 	
 		PreparedStatement preStmt = con.prepareStatement(DbUtil.allConstraints());
 		ResultSet rs = preStmt.executeQuery();
@@ -207,6 +207,141 @@ public class CronusAccess {
 		}	
 		return vectorList;	
 	}
+	public static Vector<Vector<String>> getAllTables1() throws SQLException {
+		Connection con = DbUtil.getConn();
+		int col = 4;
+	
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allTables());
+		ResultSet rs = preStmt.executeQuery();
+		Vector<Vector<String>> outerList = new Vector<Vector<String>>();
+		
+		while (rs.next()) {
+			Vector<String> innerList = new Vector<String>();
+			for (int i = 1; i <= col; i++) {
+				innerList.add(rs.getString(i));
+				
+			}
+			outerList.add(innerList);
+			
+			
+		}
+		return outerList;
+	}
+	public static Vector<String> getAllTablesMetaData1() throws SQLException {
+		Vector<String> vectorList = new Vector<String>();
+		Connection con = DbUtil.getConn();
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allTables());
+		ResultSet rs = preStmt.executeQuery();
+		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int j = rsmd.getColumnCount();
+		for (int i = 1; i <= j; i++) {
+			vectorList.add(rsmd.getColumnLabel(i));
+		}	
+		return vectorList;	
+	}
+	public static Vector<Vector<String>> getAllTables2() throws SQLException {
+		Connection con = DbUtil.getConn();
+		int col = 4;
+	
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allTablesAlt2());
+		ResultSet rs = preStmt.executeQuery();
+		Vector<Vector<String>> outerList = new Vector<Vector<String>>();
+		
+		while (rs.next()) {
+			Vector<String> innerList = new Vector<String>();
+			for (int i = 1; i <= col; i++) {
+				innerList.add(rs.getString(i));
+				
+			}
+			outerList.add(innerList);
+			
+			
+		}
+		return outerList;
+	}
+	public static Vector<String> getAllTablesMetaData2() throws SQLException {
+		Vector<String> vectorList = new Vector<String>();
+		Connection con = DbUtil.getConn();
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allTablesAlt2());
+		ResultSet rs = preStmt.executeQuery();
+		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int j = rsmd.getColumnCount();
+		for (int i = 1; i <= j; i++) {
+			vectorList.add(rsmd.getColumnLabel(i));
+		}	
+		return vectorList;	
+	}
+	public static Vector<Vector<String>> getAllColumnsEmp1() throws SQLException {
+		Connection con = DbUtil.getConn();
+		int col = 1;
+	
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allColumnsEmp());
+		ResultSet rs = preStmt.executeQuery();
+		Vector<Vector<String>> outerList = new Vector<Vector<String>>();
+		
+		while (rs.next()) {
+			Vector<String> innerList = new Vector<String>();
+			for (int i = 1; i <= col; i++) {
+				innerList.add(rs.getString(i));
+				
+			}
+			outerList.add(innerList);
+			
+			
+		}
+		return outerList;
+	}
+	public static Vector<String> getAllColumnsEmpMetaData1() throws SQLException {
+		Vector<String> vectorList = new Vector<String>();
+		Connection con = DbUtil.getConn();
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allColumnsEmp());
+		ResultSet rs = preStmt.executeQuery();
+		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int j = rsmd.getColumnCount();
+		for (int i = 1; i <= j; i++) {
+			vectorList.add(rsmd.getColumnLabel(i));
+		}	
+		return vectorList;	
+	}
+	public static Vector<Vector<String>> getAllColumnsEmp2() throws SQLException {
+		Connection con = DbUtil.getConn();
+		int col = 1;
+	
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allColumsEmpAlt2());
+		ResultSet rs = preStmt.executeQuery();
+		Vector<Vector<String>> outerList = new Vector<Vector<String>>();
+		
+		while (rs.next()) {
+			Vector<String> innerList = new Vector<String>();
+			for (int i = 1; i <= col; i++) {
+				innerList.add(rs.getString(i));
+				
+			}
+			outerList.add(innerList);
+			
+			
+		}
+		return outerList;
+	}
+	public static Vector<String> getAllColumnsEmpMetaData2() throws SQLException {
+		Vector<String> vectorList = new Vector<String>();
+		Connection con = DbUtil.getConn();
+		PreparedStatement preStmt = con.prepareStatement(DbUtil.allColumsEmpAlt2());
+		ResultSet rs = preStmt.executeQuery();
+		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int j = rsmd.getColumnCount();
+		for (int i = 1; i <= j; i++) {
+			vectorList.add(rsmd.getColumnLabel(i));
+		}	
+		return vectorList;	
+	}
+	
+
+	
 
 
 

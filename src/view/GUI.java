@@ -404,14 +404,13 @@ public class GUI {
 		JButton btnKeys = new JButton("Keys");
 		btnKeys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
 					tablemodeluppgift2.setDataVector(Controller.getKeys(), Controller.getKeysMetaData());
-				}catch (SQLException e1) {
+				} catch (SQLException e1) {
 					e1.getStackTrace();
 				}
-				
-				
+
 			}
 		});
 		btnKeys.setBounds(620, 11, 89, 23);
@@ -420,13 +419,13 @@ public class GUI {
 		JButton btnIndexes = new JButton("Indexes");
 		btnIndexes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try{
+
+				try {
 					tablemodeluppgift2.setDataVector(Controller.getIndexes(), Controller.getIndexesMetaData());
-				}catch (SQLException e3){
+				} catch (SQLException e3) {
 					e3.getStackTrace();
 				}
-				
+
 			}
 		});
 		btnIndexes.setBounds(620, 46, 89, 23);
@@ -435,10 +434,10 @@ public class GUI {
 		JButton btnConstraints = new JButton("Constraints");
 		btnConstraints.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
 					tablemodeluppgift2.setDataVector(Controller.getConstraints(), Controller.getConstraintsMetaData());
-				}catch (SQLException e4) {
+				} catch (SQLException e4) {
 					e4.getStackTrace();
 				}
 			}
@@ -449,7 +448,12 @@ public class GUI {
 		JButton btnMaxRows = new JButton("Maxrows");
 		btnMaxRows.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					tablemodeluppgift2.setDataVector(Controller.getMaxRows(), Controller.getMaxRowsMetaData());
+				} catch (SQLException e4) {
+					e4.getStackTrace();
+				}
+
 			}
 		});
 		btnMaxRows.setBounds(719, 46, 89, 23);
@@ -460,7 +464,6 @@ public class GUI {
 		panelUppgift2.add(cmbAllEmp);
 		cmbAllEmp.addItem("Solution 1");
 		cmbAllEmp.addItem("Solution 2");
-
 
 		JComboBox cmballTables = new JComboBox();
 		cmballTables.setBounds(490, 46, 90, 23);
@@ -477,10 +480,63 @@ public class GUI {
 		panelUppgift2.add(lblAllEmployeesColumn);
 
 		JButton btnSearchAllTables = new JButton("Search");
+		btnSearchAllTables.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String alltables = "";
+				String allS1 = "Solution 1";
+				String allS2 = "Solution 2";
+				
+				alltables = cmballTables.getSelectedItem().toString();
+				
+				if (alltables.equals(allS1)) {
+					try {
+						tablemodeluppgift2.setDataVector(Controller.getAllTables1(), Controller.getAllTablesMetaData1());
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+				}else if (alltables.equals(allS2)){
+					try {
+						tablemodeluppgift2.setDataVector(Controller.getAllTables2(), Controller.getAllTablesMetaData2());
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+				}
+				}
+			}
+		});
 		btnSearchAllTables.setBounds(347, 80, 89, 23);
 		panelUppgift2.add(btnSearchAllTables);
 
 		JButton btnSearchAllEmp = new JButton("Search");
+		btnSearchAllEmp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String allEmp = "";
+				String emps1 = "Solution 1";
+				String emps2 = "Solution 2";
+				allEmp = cmbAllEmp.getSelectedItem().toString();
+				
+				if (allEmp.equals(emps1)) {
+					try {
+						tablemodeluppgift2.setDataVector(Controller.getAllColumnsEmp1(), Controller.getAllColumnsEmpMetaData1());
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+				}else if (allEmp.equals(emps2)){
+					try {
+						tablemodeluppgift2.setDataVector(Controller.getAllColumnsEmp2(), Controller.getAllColumnsEmpMetaData2());
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+				}
+				}
+				
+				
+			}
+		});
 		btnSearchAllEmp.setBounds(490, 79, 89, 23);
 		panelUppgift2.add(btnSearchAllEmp);
 
