@@ -5,9 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import DAL.ShareAccess;
+import _controller.Controller;
 import controller.CourseController;
 import controller.SharedController;
 import exceptions.CourseExceptions;
@@ -23,6 +25,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -58,11 +61,13 @@ public class GUI {
 	private JTable tablecourse;
 	private DefaultTableModel tablemodelcourse;
 	private JTable tbluppgift2;
+	private DefaultTableModel tablemodeluppgift2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// +UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -350,35 +355,134 @@ public class GUI {
 		lblapplymsg.setBounds(537, 458, 158, 14);
 		panelUppgift1.add(lblapplymsg);
 
+		String[] uppgift2Header = { "1", "2", "3", "4", "5" };
+		tablemodeluppgift2 = new DefaultTableModel(uppgift2Header, 0);
+
 		JPanel panelUppgift2 = new JPanel();
 		tabbedPane.addTab("Uppgift2", null, panelUppgift2, null);
 		panelUppgift2.setLayout(null);
 
+		JComboBox cmbupp2 = new JComboBox();
+		cmbupp2.setBounds(24, 11, 300, 23);
+		panelUppgift2.add(cmbupp2);
+		cmbupp2.addItem("CRONUS Sverige AB$Employee");
+		cmbupp2.addItem("CRONUS Sverige AB$Employee Absence");
+		cmbupp2.addItem("CRONUS Sverige AB$Employee Portal Setup");
+		cmbupp2.addItem("CRONUS Sverige AB$Employee Qualification");
+		cmbupp2.addItem("CRONUS Sverige AB$Employee Relative");
+		cmbupp2.addItem("CRONUS Sverige AB$Employee Statistics Group");
+
 		JButton btnupp2 = new JButton("Apply");
 		btnupp2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				String tablename;
+				tablename = cmbupp2.getSelectedItem().toString();
+				if (tablename.equals("CRONUS Sverige AB$Employee Statistics Group")) {
+
+				}
+
+				try {
+					tablemodeluppgift2.setDataVector(Controller.getStandardData(tablename),
+							Controller.getStandardMetaData(tablename));
+				} catch (SQLException e) {
+					e.getStackTrace();
+				}
+
 			}
 		});
-		btnupp2.setBounds(349, 12, 89, 24);
+
+		btnupp2.setBounds(21, 45, 89, 24);
 		panelUppgift2.add(btnupp2);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(24, 69, 788, 511);
+		scrollPane_2.setBounds(34, 113, 788, 460);
 		panelUppgift2.add(scrollPane_2);
-
-		tbluppgift2 = new JTable();
+		tbluppgift2 = new JTable(tablemodeluppgift2);
 		scrollPane_2.setViewportView(tbluppgift2);
 
-		JComboBox cmbupp2 = new JComboBox();
-		cmbupp2.setBounds(24, 13, 300, 23);
-		panelUppgift2.add(cmbupp2);
-		cmbupp2.addItem("All Keys");
-		cmbupp2.addItem("All Indexes");
-		cmbupp2.addItem("All Table Constraints");
-		cmbupp2.addItem("Get Table Max Rows");
-		cmbupp2.addItem("");
-		cmbupp2.addItem("U");
-		
+		JButton btnKeys = new JButton("Keys");
+		btnKeys.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					tablemodeluppgift2.setDataVector(Controller.getKeys(), Controller.getKeysMetaData());
+				}catch (SQLException e1) {
+					e1.getStackTrace();
+				}
+				
+				
+			}
+		});
+		btnKeys.setBounds(620, 11, 89, 23);
+		panelUppgift2.add(btnKeys);
+
+		JButton btnIndexes = new JButton("Indexes");
+		btnIndexes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try{
+					tablemodeluppgift2.setDataVector(Controller.getIndexes(), Controller.getIndexesMetaData());
+				}catch (SQLException e3){
+					e3.getStackTrace();
+				}
+				
+			}
+		});
+		btnIndexes.setBounds(620, 46, 89, 23);
+		panelUppgift2.add(btnIndexes);
+
+		JButton btnConstraints = new JButton("Constraints");
+		btnConstraints.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					tablemodeluppgift2.setDataVector(Controller.getConstraints(), Controller.getConstraintsMetaData());
+				}catch (SQLException e4) {
+					e4.getStackTrace();
+				}
+			}
+		});
+		btnConstraints.setBounds(719, 11, 89, 23);
+		panelUppgift2.add(btnConstraints);
+
+		JButton btnMaxRows = new JButton("Maxrows");
+		btnMaxRows.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnMaxRows.setBounds(719, 46, 89, 23);
+		panelUppgift2.add(btnMaxRows);
+
+		JComboBox cmbAllEmp = new JComboBox();
+		cmbAllEmp.setBounds(347, 46, 90, 23);
+		panelUppgift2.add(cmbAllEmp);
+		cmbAllEmp.addItem("Solution 1");
+		cmbAllEmp.addItem("Solution 2");
+
+
+		JComboBox cmballTables = new JComboBox();
+		cmballTables.setBounds(490, 46, 90, 23);
+		panelUppgift2.add(cmballTables);
+		cmballTables.addItem("Solution 1");
+		cmballTables.addItem("Solution 2");
+
+		JLabel lblAllTablesIn = new JLabel("All tables in database");
+		lblAllTablesIn.setBounds(345, 15, 140, 14);
+		panelUppgift2.add(lblAllTablesIn);
+
+		JLabel lblAllEmployeesColumn = new JLabel("All employee columns");
+		lblAllEmployeesColumn.setBounds(490, 15, 134, 14);
+		panelUppgift2.add(lblAllEmployeesColumn);
+
+		JButton btnSearchAllTables = new JButton("Search");
+		btnSearchAllTables.setBounds(347, 80, 89, 23);
+		panelUppgift2.add(btnSearchAllTables);
+
+		JButton btnSearchAllEmp = new JButton("Search");
+		btnSearchAllEmp.setBounds(490, 79, 89, 23);
+		panelUppgift2.add(btnSearchAllEmp);
 
 		JPanel panelUppgift3 = new JPanel();
 		tabbedPane.addTab("Uppgift3", null, panelUppgift3, null);

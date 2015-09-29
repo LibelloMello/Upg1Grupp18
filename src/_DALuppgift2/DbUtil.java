@@ -1,4 +1,4 @@
-package DALuppgift2;
+package _DALuppgift2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,31 +17,40 @@ public class DbUtil {
 
 	// Fråga 1
 	public static String allKeys() {
-		return "SELECT CONSTRAINT_CATALOG, CONSTRAINT_SCHEMA, CONSTRAINT_NAME, TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_NAME like '% AB$Employee%'";
+		return "SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE";
 	}
-
+	
 	// Fråga 2
 	public static String allIndexes() {
-		return "SELECT id, name, rows, status, first FROM sys.indexes WHERE name like '%AB$Employee%'";
+		return "SELECT * FROM sys.indexes";
 	}
 
 	//Fråga 3
-	public static String tableConstraints() {
-		return "SELECT TABLE_NAME, CONSTRAINT_CATALOG, CONSTRAINT_SCHEMA, CONSTRAINT_NAME, TABLE_CATALOG FROM INFORMATION_SCHEMA. CONSTRAINT_TABLE_USAGE WHERE TABLE_NAME like'%AB$Employee%'";
+	public static String allConstraints() {
+		return "SELECT TABLE_NAME, CONSTRAINT_CATALOG, CONSTRAINT_SCHEMA, CONSTRAINT_NAME, TABLE_CATALOG FROM INFORMATION_SCHEMA. CONSTRAINT_TABLE_USAGE";
 	}
-	//Fråga 4
+	//Fråga 4alt1
 	public static String allTables() {
-		return "SELECT* FROM INFORMATION_SCHEMA. TABLES WHERE TABLE_NAME like'%AB$Employee%'";
+		return "SELECT* FROM INFORMATION_SCHEMA. TABLES";
 	}
-	//Fråga 5 gustavosv
+	//Fråga 4 alt2
+	public static String allTablesAlt2() {
+		return "select name from sys.tables";
+	}
+	
+	//Fråga 5 alt1
 	public static String allColumnsEmp () {
 		return "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CRONUS Sverige AB$Employee'";
+	}
+	//Fråga 5 alt2
+	public static String allColumsEmpAlt2() {
+		return "select sc.name from sys.columns sc INNER JOIN sys.tables st ON st.object_id = sc.object_id WHERE st.name = 'CRONUS Sverige AB$Employee'";
 	}
 	
 	
 	//Fråga 6
 	public static String mostRows() {
-		return "SELECT so.Name FROM sysobjects so, sysindexes si WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.Name) AND si.rows = (SELECT MAX(rows) FROM sysindexes WHERE Name like '%AB$Employee%') GROUP BY so.Name";	
+		return "SELECT so.Name, si.rows FROM sysobjects so, sysindexes si WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.Name) AND si.rows = (SELECT MAX(rows) FROM sysindexes) GROUP BY so.Name, si.rows";
 	}
 	
 	public static String allEmployee () {
@@ -65,7 +74,7 @@ public class DbUtil {
 	}
 		
 			public static String allStatistics () {
-		return "SELECT * FROM [CRONUS Sverige AB$Employee Statistics Group]";
+		return "SELECT [timestamp], [Code], [Description], '','' FROM [CRONUS Sverige AB$Employee Statistics Group]";
 	}	
 	
 }
