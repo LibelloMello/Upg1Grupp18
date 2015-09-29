@@ -21,7 +21,7 @@ public class main {
 	
 
 	try {
-		System.out.print(SharedView.registerStudentOnCourse("555", "k67"));
+		System.out.print(SharedView.readResult("5", "k1").getsGrade());
 	} catch (StudentExceptions e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

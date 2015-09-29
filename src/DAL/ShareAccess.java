@@ -143,6 +143,7 @@ public class ShareAccess {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.getPercentA(cCode));
 			preState.setString(1, cCode);
+			preState.setString(2, cCode);
 			rs = preState.executeQuery();
 			int g = 0;
 

@@ -75,7 +75,7 @@ public class DbUtil {
 	}
 
 	public static String getPercentA(String cCode) {
-		return "Select (Count(grade)* 100 / (Select Count(*) From Studied)) as Score From Studied s WHERE s.grade='A' AND s.ccode=? Group By grade ";
+		return "Select (Count(grade)* 100 / (Select Count(*) From Studied where ccode=?)) as Score From Studied s WHERE s.grade='A' AND s.ccode=? Group By grade ";
 	}
 
 	public static String checkIfFortyFive(String sPnr) {
