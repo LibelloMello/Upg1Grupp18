@@ -32,7 +32,7 @@ public class DbUtil {
 
 	// Fråga 4alt1
 	public static String allTables() {
-		return "SELECT* FROM INFORMATION_SCHEMA. TABLES";
+		return "SELECT TABLE_NAME FROM INFORMATION_SCHEMA. TABLES";
 	}
 
 	// Fråga 4 alt2

@@ -145,7 +145,7 @@ public class CourseAccess {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DbUtil.getConn();
 			preState = con.prepareStatement(DbUtil.registerCourse());
@@ -154,8 +154,7 @@ public class CourseAccess {
 			preState.setString(2, course.getCname());
 			preState.setInt(3, course.getCredits());
 			preState.executeUpdate();
-			
-			
+
 		} catch (SQLException e) {
 			throw new CourseExceptions("Course already exists", e);
 		} finally {
@@ -181,5 +180,29 @@ public class CourseAccess {
 			}
 		}
 
+	}
+
+	public static String getStudentFlow() throws CourseExceptions {
+
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+		String ccode = null;
+		String percent = null;
+		String result = null;
+
+		try {
+			con = DbUtil.getConn();
+
+			preState = con.prepareStatement(DbUtil.throughPut(ccode));
+			rs = preState.executeQuery();
+			rs.next();
+			ccode = rs.getString(1);
+			percent = rs.getString(2);
+			result = (ccode + "	     "+"	                           	 " + percent + "%");
+		} catch (SQLException e) {
+			throw new CourseExceptions("Couldn't find a course", e);
+		}
+		return result;
 	}
 }

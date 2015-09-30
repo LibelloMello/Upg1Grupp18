@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import controller.StudentController;
 import exceptions.StudentExceptions;
 import model.Student;
@@ -52,6 +54,15 @@ public class StudentView {
 		}
 		return student;
 
+	}
+	public static List<Student> getAllStudents() throws StudentExceptions {
+		List<Student> list = null;
+		try {
+			list = StudentController.ReadAll();
+		}catch (StudentExceptions e) {
+			
+		}
+		return list;
 	}
 
 }

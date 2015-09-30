@@ -91,6 +91,9 @@ public class DbUtil {
 		return course;
 
 	}
+	public static String throughPut (String ccode) throws SQLException {
+		return "SELECT TOP 1 ccode,  FORMAT((SUM(CASE WHEN grade != 'U' THEN 1 ELSE 0 END)) * 100.0 / (SUM(CASE WHEN grade LIKE '_' THEN 1 ELSE 0 END)),'F0') AS PassedPercentage FROM studied GROUP BY ccode ORDER BY PassedPercentage DESC";
+	}
 
 	public static List<Course> mapCourses(ResultSet rs) throws SQLException {
 		List<Course> cList = new ArrayList<Course>();

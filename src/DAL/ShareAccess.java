@@ -17,7 +17,7 @@ public class ShareAccess {
 	static ResultSet rs = null;
 	static String error = "";
 
-	public static void registerStudied(String sPnr, String cCode, String sGrade) {
+	public static void registerStudied(String sPnr, String cCode, String sGrade) throws StudentExceptions {
 
 		Connection con = null;
 		PreparedStatement preState = null;
@@ -32,7 +32,7 @@ public class ShareAccess {
 			preState.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new StudentExceptions("Unable to register student");
 		} finally {
 			if (rs != null) {
 				try {

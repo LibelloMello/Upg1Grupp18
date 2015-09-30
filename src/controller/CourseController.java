@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import DAL.CourseAccess;
@@ -22,6 +23,9 @@ public class CourseController {
 		
 		public static void DeleteCourse(String cCode) throws CourseExceptions{
 			CourseAccess.deleteCourse(cCode);
+		}
+		public static String readThroughput () throws CourseExceptions {
+			return CourseAccess.getStudentFlow();
 		}
 	
 

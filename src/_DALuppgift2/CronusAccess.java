@@ -209,7 +209,7 @@ public class CronusAccess {
 	}
 	public static Vector<Vector<String>> getAllTables1() throws SQLException {
 		Connection con = DbUtil.getConn();
-		int col = 4;
+		int col = 1;
 	
 		PreparedStatement preStmt = con.prepareStatement(DbUtil.allTables());
 		ResultSet rs = preStmt.executeQuery();
@@ -242,7 +242,7 @@ public class CronusAccess {
 	}
 	public static Vector<Vector<String>> getAllTables2() throws SQLException {
 		Connection con = DbUtil.getConn();
-		int col = 4;
+		int col1 = 1;
 	
 		PreparedStatement preStmt = con.prepareStatement(DbUtil.allTablesAlt2());
 		ResultSet rs = preStmt.executeQuery();
@@ -250,8 +250,8 @@ public class CronusAccess {
 		
 		while (rs.next()) {
 			Vector<String> innerList = new Vector<String>();
-			for (int i = 1; i <= col; i++) {
-				innerList.add(rs.getString(i));
+			for (int j = 1; j <= col1; j++) {
+				innerList.add(rs.getString(j));
 				
 			}
 			outerList.add(innerList);
