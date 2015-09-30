@@ -199,7 +199,7 @@ public class CourseAccess {
 			rs.next();
 			ccode = rs.getString(1);
 			percent = rs.getString(2);
-			result = (ccode + "	     "+"	                           	 " + percent + "%");
+			result = (ccode + "	     " + "	                           	 " + percent + "%");
 		} catch (SQLException e) {
 			throw new CourseExceptions("Couldn't find a course", e);
 		}

@@ -22,6 +22,7 @@ public class DbUtil {
 	public static String getAllCourses() {
 		return "SELECT * FROM Course ";
 	}
+
 	public static String registerCourse() {
 		return "INSERT INTO Course (ccode, cname, credits) VALUES (?, ?, ?)";
 	}
@@ -49,8 +50,8 @@ public class DbUtil {
 	public static String getFinishedStudents(String cCode) {
 		return "SELECT s.spnr, c.ccode, s.grade FROM Course c JOIN Studied s ON c.ccode=s.ccode WHERE c.ccode=?";
 	}
-	
-	public static String getResult (String sPnr, String cCode) {
+
+	public static String getResult(String sPnr, String cCode) {
 		return "SELECT * FROM Studied WHERE spnr = ? AND ccode = ?";
 	}
 
@@ -91,7 +92,8 @@ public class DbUtil {
 		return course;
 
 	}
-	public static String throughPut (String ccode) throws SQLException {
+
+	public static String throughPut(String ccode) throws SQLException {
 		return "SELECT TOP 1 ccode,  FORMAT((SUM(CASE WHEN grade != 'U' THEN 1 ELSE 0 END)) * 100.0 / (SUM(CASE WHEN grade LIKE '_' THEN 1 ELSE 0 END)),'F0') AS PassedPercentage FROM studied GROUP BY ccode ORDER BY PassedPercentage DESC";
 	}
 

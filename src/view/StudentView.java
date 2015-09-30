@@ -50,17 +50,18 @@ public class StudentView {
 
 		} catch (StudentExceptions e) {
 			msg = "Student was not found";
-			
+
 		}
 		return student;
 
 	}
+
 	public static List<Student> getAllStudents() throws StudentExceptions {
 		List<Student> list = null;
 		try {
 			list = StudentController.ReadAll();
-		}catch (StudentExceptions e) {
-			
+		} catch (StudentExceptions e) {
+
 		}
 		return list;
 	}

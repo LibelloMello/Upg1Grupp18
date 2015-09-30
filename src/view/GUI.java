@@ -104,27 +104,6 @@ public class GUI {
 
 		String[] headerStudents = { "Student ID", "Name", "Address" };
 		tablemodelstudents = new DefaultTableModel(headerStudents, 0);
-		/*
-		 * JScrollPane scrollStudent = new JScrollPane();
-		 * scrollStudent.setBounds(37, 185, 286, 57);
-		 * panelstudent.add(scrollStudent);
-		 * 
-		 * String[] headerStudents = { "Student ID", "Name", "Address" };
-		 * tablemodelstudents = new DefaultTableModel(headerStudents, 3);
-		 * 
-		 * 
-		 * tabelstudent = new JTable(tablemodelstudents);
-		 * scrollStudent.setViewportView(tabelstudent);
-		 * 
-		 * 
-		 * 
-		 * 
-		 * JLabel lblNewLabel_1 = new JLabel("Student ID");
-		 * lblNewLabel_1.setBounds(10, 11, 97, 14); panel_1.add(lblNewLabel_1);
-		 * 
-		 * txtspnrreg = new JTextField(); txtspnrreg.setBounds(117, 7, 230, 23);
-		 * panel_1.add(txtspnrreg); txtspnrreg.setColumns(10);
-		 */
 
 		String[] headerStudying = { "Student ID" };
 		tablemodelstudying = new DefaultTableModel(headerStudying, 0);
@@ -138,12 +117,11 @@ public class GUI {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 827, 619);
 		frame.getContentPane().add(tabbedPane);
-		
 
 		JPanel panelUppgift1 = new JPanel();
 		tabbedPane.addTab("Uppgift1 ", null, panelUppgift1, null);
 		panelUppgift1.setLayout(null);
-		
+
 		JComboBox cmbcourse = new JComboBox();
 		cmbcourse.setBounds(554, 303, 159, 28);
 		panelUppgift1.add(cmbcourse);
@@ -175,7 +153,7 @@ public class GUI {
 		JButton btnupp2 = new JButton("Apply");
 		btnupp2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				String tablename;
 				tablename = cmbupp2.getSelectedItem().toString();
 				if (tablename.equals("CRONUS Sverige AB$Employee Statistics Group")) {
@@ -425,9 +403,8 @@ public class GUI {
 		JButton btngetExcel = new JButton("Open Excel File");
 		btngetExcel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				long starttime = System.currentTimeMillis();
-			
 
 				int index = cmbexcel.getSelectedIndex();
 
@@ -726,8 +703,6 @@ public class GUI {
 		lblMessage.setBounds(459, 97, 69, 14);
 		panelUppgift1.add(lblMessage);
 
-	
-
 		JLabel lblNewLabel_1 = new JLabel("Student ID");
 		lblNewLabel_1.setBounds(449, 278, 108, 14);
 		panelUppgift1.add(lblNewLabel_1);
@@ -799,11 +774,11 @@ public class GUI {
 		JLabel lblThroughPut = new JLabel("");
 		lblThroughPut.setBounds(32, 542, 157, 14);
 		panelUppgift1.add(lblThroughPut);
-		
+
 		JLabel lblCourseCode = new JLabel("Course Code");
 		lblCourseCode.setBounds(32, 517, 97, 14);
 		panelUppgift1.add(lblCourseCode);
-		
+
 		JLabel lblPercent = new JLabel("Percent");
 		lblPercent.setBounds(139, 517, 65, 14);
 		panelUppgift1.add(lblPercent);
@@ -830,7 +805,7 @@ public class GUI {
 				if (rdbtnregstudent.isSelected()) {
 					int i = 0;
 					try {
-						
+
 						i = SharedView.registerStudentOnCourse(spnr, ccode);
 					} catch (StudentExceptions e1) {
 						lblapplymsg.setText(Integer.toString(i));
@@ -846,7 +821,7 @@ public class GUI {
 					}
 				}
 				if (rdbtnregstudied.isSelected()) {
-					
+
 					try {
 						lblapplymsg.setText("Couldn't find Student");
 						for (Student s : StudentView.getAllStudents()) {
@@ -950,7 +925,6 @@ public class GUI {
 				while (tablemodelstudents.getRowCount() > 0) {
 					tablemodelstudents.removeRow(0);
 				}
-				
 
 				try {
 					msg = StudentView.addStudent(spnr, sname, saddress);
@@ -1001,13 +975,12 @@ public class GUI {
 
 		btnCourseWithHighest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-		
+
 				String msg = "";
 				try {
-				msg = CourseView.getHighestThroughput();
-				lblThroughPut.setText(msg);
-				}catch (CourseExceptions e2) {
+					msg = CourseView.getHighestThroughput();
+					lblThroughPut.setText(msg);
+				} catch (CourseExceptions e2) {
 					lblThroughPut.setText(msg);
 				}
 
@@ -1125,7 +1098,6 @@ public class GUI {
 		});
 		btnRegisterCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 
 				String ccode = txtcCode.getText();
 				String cname = txtcName.getText();

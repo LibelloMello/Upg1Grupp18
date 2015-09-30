@@ -57,12 +57,14 @@ public class CourseView {
 		return course;
 
 	}
-	public static String getHighestThroughput () throws CourseExceptions {
+
+	public static String getHighestThroughput() throws CourseExceptions {
 		String msg = "";
 		try {
 			msg = CourseController.readThroughput();
 		} catch (CourseExceptions e) {
-			msg ="Couldn't find a course";
-		} return msg;
+			msg = "Couldn't find a course";
+		}
+		return msg;
 	}
 }
