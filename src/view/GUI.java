@@ -1032,7 +1032,7 @@ public class GUI {
 				while (tablemodelstudents.getRowCount() > 0) {
 					tablemodelstudents.removeRow(0);
 				}
-				if (txtsname.getText().isEmpty() || txtspnr.getText().isEmpty() || txtspnr.getText().isEmpty()) {
+				if (txtsname.getText().isEmpty() || txtspnr.getText().isEmpty() || txtsaddress.getText().isEmpty()) {
 					lblmsgstudent.setText("Fill in fields");
 				} else {
 					try {

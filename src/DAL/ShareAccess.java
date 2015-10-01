@@ -324,8 +324,7 @@ public class ShareAccess {
 		ResultSet rs = null;
 		con = DbUtil.getConn();
 
-		preState = con.prepareStatement(
-				"SELECT cname AS Kursnamn, c.ccode AS Coursecode, credits AS Credits FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ?");
+		preState = con.prepareStatement(DbUtil.getStudentStudying(spnr));
 		preState.setString(1, spnr);
 		return preState.executeQuery();
 	}

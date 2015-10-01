@@ -90,11 +90,12 @@ public class DbUtil {
 		course.setCredits(rs.getInt("credits"));
 
 		return course;
-
 	}
-
+	public static String getStudentStudying(String spnr) {
+		return "SELECT cname AS Kursnamn, c.ccode AS Coursecode, credits AS Credits FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ?";
+	}
 	public static String throughPut(String ccode) throws SQLException {
-		return "SELECT TOP 1 ccode, (SUM(CASE WHEN grade != 'U' THEN 1 ELSE 0 END)) * 100.0 / (SUM(CASE WHEN grade LIKE '_' THEN 1 ELSE 0 END)) AS 'Percentage' FROM Studied s GROUP BY s.ccode ORDER BY Percentage DESC";
+		return "SELECT TOP 1 ccode, (SUM(CASE WHEN grade != 'U' THEN 1 ELSE 0 END)) * 100 / (SUM(CASE WHEN grade LIKE '_' THEN 1 ELSE 0 END)) AS 'Percentage' FROM Studied s GROUP BY s.ccode ORDER BY Percentage DESC";
 	}
 	public static String getStudentsCourses(String sPnr) throws SQLException {
 		return "SELECT c.ccode, s.credits FROM studying s, Course c WHERE spnr = ?";
@@ -168,5 +169,6 @@ public class DbUtil {
 		}
 		return studyingList;
 	}
+	
 
 }
