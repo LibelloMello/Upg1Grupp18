@@ -70,13 +70,14 @@ public class GUI {
 	private JTable tbluppgift2;
 	private DefaultTableModel tablemodeluppgift2;
 	private Desktop desktop;
+	private DefaultTableModel tablemodelstudentstudying;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
 					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -89,7 +90,6 @@ public class GUI {
 	public GUI() {
 		initialize();
 	}
-	
 
 	private void initialize() {
 		frame = new JFrame();
@@ -98,8 +98,7 @@ public class GUI {
 		frame.getContentPane().setLayout(null);
 
 		ButtonGroup buttongroup = new ButtonGroup();
-		
-	
+
 		try {
 			desktop = null;
 			if (Desktop.isDesktopSupported()) {
@@ -288,7 +287,7 @@ public class GUI {
 				}
 			}
 		});
-		btnSearchAllTables.setBounds(347, 80, 89, 23);
+		btnSearchAllTables.setBounds(346, 80, 89, 23);
 		panelUppgift2.add(btnSearchAllTables);
 
 		JButton btnSearchAllEmp = new JButton("Search");
@@ -663,7 +662,7 @@ public class GUI {
 		lblmsgstudent.setBounds(527, 97, 144, 14);
 		panelUppgift1.add(lblmsgstudent);
 		JScrollPane scrollStudent = new JScrollPane();
-		scrollStudent.setBounds(459, 188, 286, 57);
+		scrollStudent.setBounds(458, 188, 287, 57);
 		panelUppgift1.add(scrollStudent);
 		scrollStudent.setEnabled(false);
 
@@ -706,7 +705,7 @@ public class GUI {
 		panelUppgift1.add(lblMessage);
 
 		JLabel lblNewLabel_1 = new JLabel("Student ID");
-		lblNewLabel_1.setBounds(449, 278, 108, 14);
+		lblNewLabel_1.setBounds(454, 278, 108, 14);
 		panelUppgift1.add(lblNewLabel_1);
 
 		txtspnrreg = new JTextField();
@@ -715,7 +714,7 @@ public class GUI {
 		txtspnrreg.setColumns(10);
 
 		JComboBox cmbgrade = new JComboBox();
-		cmbgrade.setBounds(707, 365, 38, 20);
+		cmbgrade.setBounds(690, 365, 38, 20);
 		panelUppgift1.add(cmbgrade);
 		cmbgrade.setEnabled(false);
 		cmbgrade.addItem("A");
@@ -735,25 +734,25 @@ public class GUI {
 		panelUppgift1.add(lblSelectCourse);
 
 		JRadioButton rdbtnShowStudentsResult = new JRadioButton("Show students result");
-		rdbtnShowStudentsResult.setBounds(449, 389, 152, 23);
+		rdbtnShowStudentsResult.setBounds(449, 390, 152, 23);
 		panelUppgift1.add(rdbtnShowStudentsResult);
 		buttongroup.add(rdbtnShowStudentsResult);
 
 		JRadioButton rdbtnremovestudentfrcourse = new JRadioButton("Remove student from course");
-		rdbtnremovestudentfrcourse.setBounds(449, 415, 209, 23);
+		rdbtnremovestudentfrcourse.setBounds(449, 416, 209, 23);
 		panelUppgift1.add(rdbtnremovestudentfrcourse);
 		buttongroup.add(rdbtnremovestudentfrcourse);
 
 		JLabel lblFillInGrade = new JLabel("Fill in grade");
-		lblFillInGrade.setBounds(643, 368, 122, 14);
+		lblFillInGrade.setBounds(615, 368, 122, 14);
 		panelUppgift1.add(lblFillInGrade);
 
 		JLabel lblStudentsGrade = new JLabel("Grade:");
-		lblStudentsGrade.setBounds(643, 393, 52, 14);
+		lblStudentsGrade.setBounds(645, 396, 52, 14);
 		panelUppgift1.add(lblStudentsGrade);
 
 		JButton btnApply = new JButton("Apply");
-		btnApply.setBounds(447, 483, 97, 23);
+		btnApply.setBounds(447, 496, 97, 23);
 		panelUppgift1.add(btnApply);
 
 		JRadioButton rdbtnregstudied = new JRadioButton("Register studied");
@@ -762,7 +761,7 @@ public class GUI {
 		buttongroup.add(rdbtnregstudied);
 
 		JLabel lblGrade = new JLabel("");
-		lblGrade.setBounds(699, 393, 46, 14);
+		lblGrade.setBounds(690, 396, 46, 14);
 		panelUppgift1.add(lblGrade);
 
 		JLabel lblMessage_2 = new JLabel("Message:");
@@ -774,7 +773,7 @@ public class GUI {
 		panelUppgift1.add(lblapplymsg);
 
 		JLabel lblThroughPut = new JLabel("");
-		lblThroughPut.setBounds(92, 566, 157, 14);
+		lblThroughPut.setBounds(92, 566, 287, 14);
 		panelUppgift1.add(lblThroughPut);
 
 		JLabel lblCourseCode = new JLabel("Course Code");
@@ -1076,6 +1075,7 @@ public class GUI {
 						saddress = student.getsAddress();
 						Object[] data = { spnr, sname, saddress };
 						tablemodelstudents.addRow(data);
+
 					}
 
 				} catch (StudentExceptions e2) {
@@ -1133,7 +1133,7 @@ public class GUI {
 		btnSearchCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblmsgcourse.setText("");
-				
+
 				Course c = null;
 				String ccode = txtcCode.getText();
 				String cname;
@@ -1243,6 +1243,9 @@ public class GUI {
 			}
 
 		});
+
+		String[] headerStudentStudying = { "Course Code", "Credits" };
+		tablemodelstudentstudying = new DefaultTableModel(headerStudentStudying, 0);
 
 	}
 }

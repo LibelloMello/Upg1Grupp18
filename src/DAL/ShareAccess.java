@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import exceptions.StudentExceptions;
 import model.Student;
@@ -328,6 +329,47 @@ public class ShareAccess {
 		preState.setString(1, spnr);
 		return preState.executeQuery();
 	}
+	
+	public static String getStudentsCourses(String sPnr) throws StudentExceptions {
+
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(DbUtil.getStudentsCourses(sPnr));
+			preState.setString(1, sPnr);
+			rs = preState.executeQuery();
+
+			return null;
+		} catch (SQLException e) {
+			throw new StudentExceptions("hej", e);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (preState != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (con != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+
+	}
+
 
 	private static boolean studentIsActive(String pnr, String ccode) throws SQLException {
 		ResultSet rs = getStudentStudying(pnr);

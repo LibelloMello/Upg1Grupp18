@@ -17,13 +17,18 @@ import java.sql.Connection;
 public class main {
 
 	public static void main(String[] args) {
-		long starttime = System.currentTimeMillis();
-		long stoptime = System.currentTimeMillis();
-		String elapsedtime = Long.toString(stoptime - starttime);
-		System.out.println(elapsedtime);
 	
-	
+		
 
+		
+			try {
+				System.out.println(ShareAccess.getStudentsCourses("222"));
+			} catch (StudentExceptions e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+	
 	}
 
 }
