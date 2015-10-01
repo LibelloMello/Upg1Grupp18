@@ -37,11 +37,15 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import java.awt.Component;
 import java.awt.Desktop;
+import java.awt.Dimension;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JTabbedPane;
 import javax.swing.JSlider;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import com.sun.javafx.tk.Toolkit;
 
 public class GUI {
 
@@ -71,7 +75,8 @@ public class GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// +UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					
 					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -84,6 +89,7 @@ public class GUI {
 	public GUI() {
 		initialize();
 	}
+	
 
 	private void initialize() {
 		frame = new JFrame();
@@ -92,7 +98,8 @@ public class GUI {
 		frame.getContentPane().setLayout(null);
 
 		ButtonGroup buttongroup = new ButtonGroup();
-
+		
+	
 		try {
 			desktop = null;
 			if (Desktop.isDesktopSupported()) {
@@ -174,7 +181,7 @@ public class GUI {
 		panelUppgift2.add(btnupp2);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(34, 113, 788, 460);
+		scrollPane_2.setBounds(10, 114, 798, 460);
 		panelUppgift2.add(scrollPane_2);
 		tbluppgift2 = new JTable(tablemodeluppgift2);
 		scrollPane_2.setViewportView(tbluppgift2);
@@ -191,7 +198,7 @@ public class GUI {
 
 			}
 		});
-		btnKeys.setBounds(620, 11, 89, 23);
+		btnKeys.setBounds(620, 46, 89, 23);
 		panelUppgift2.add(btnKeys);
 
 		JButton btnIndexes = new JButton("Indexes");
@@ -206,7 +213,7 @@ public class GUI {
 
 			}
 		});
-		btnIndexes.setBounds(620, 46, 89, 23);
+		btnIndexes.setBounds(620, 80, 89, 23);
 		panelUppgift2.add(btnIndexes);
 
 		JButton btnConstraints = new JButton("Constraints");
@@ -220,7 +227,7 @@ public class GUI {
 				}
 			}
 		});
-		btnConstraints.setBounds(719, 11, 89, 23);
+		btnConstraints.setBounds(719, 46, 89, 23);
 		panelUppgift2.add(btnConstraints);
 
 		JButton btnMaxRows = new JButton("Maxrows");
@@ -234,7 +241,7 @@ public class GUI {
 
 			}
 		});
-		btnMaxRows.setBounds(719, 46, 89, 23);
+		btnMaxRows.setBounds(719, 80, 89, 23);
 		panelUppgift2.add(btnMaxRows);
 
 		JComboBox cmbAllEmp = new JComboBox();
@@ -308,7 +315,7 @@ public class GUI {
 
 			}
 		});
-		btnSearchAllEmp.setBounds(490, 79, 89, 23);
+		btnSearchAllEmp.setBounds(490, 80, 89, 23);
 		panelUppgift2.add(btnSearchAllEmp);
 
 		JPanel panelUppgift3 = new JPanel();
@@ -404,8 +411,6 @@ public class GUI {
 		btngetExcel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				long starttime = System.currentTimeMillis();
-
 				int index = cmbexcel.getSelectedIndex();
 
 				if (index == 0) {
@@ -457,9 +462,6 @@ public class GUI {
 						e1.printStackTrace();
 					}
 				}
-				long stoptime = System.currentTimeMillis();
-				String elapsedtime = Long.toString(stoptime - starttime);
-				System.out.println(elapsedtime);
 
 			}
 		});
@@ -467,13 +469,13 @@ public class GUI {
 		panelUppgift3.add(btngetExcel);
 
 		JComboBox cmbAccessForm = new JComboBox();
-		cmbAccessForm.setBounds(175, 223, 126, 20);
+		cmbAccessForm.setBounds(185, 217, 126, 20);
 		panelUppgift3.add(cmbAccessForm);
 		cmbAccessForm.addItem("All Employees");
 		cmbAccessForm.addItem("All Customers");
 
 		JComboBox cmbExcelForms = new JComboBox();
-		cmbExcelForms.setBounds(175, 186, 126, 20);
+		cmbExcelForms.setBounds(185, 186, 126, 20);
 		panelUppgift3.add(cmbExcelForms);
 		cmbExcelForms.addItem("All Employees");
 		cmbExcelForms.addItem("All Customers");
@@ -501,11 +503,11 @@ public class GUI {
 
 			}
 		});
-		btnOpenAccessForms.setBounds(10, 222, 155, 23);
+		btnOpenAccessForms.setBounds(10, 216, 155, 23);
 		panelUppgift3.add(btnOpenAccessForms);
 
 		JComboBox cmbWordForm = new JComboBox();
-		cmbWordForm.setBounds(175, 155, 126, 20);
+		cmbWordForm.setBounds(185, 155, 126, 20);
 		panelUppgift3.add(cmbWordForm);
 		cmbWordForm.addItem("All Employees");
 		cmbWordForm.addItem("All Customers");
@@ -558,7 +560,7 @@ public class GUI {
 				}
 			}
 		});
-		btnOpenExcelForms.setBounds(9, 188, 156, 23);
+		btnOpenExcelForms.setBounds(9, 185, 156, 23);
 		panelUppgift3.add(btnOpenExcelForms);
 
 		txtcCode = new JTextField();
@@ -601,7 +603,7 @@ public class GUI {
 		panelUppgift1.add(btnDeleteCourse);
 
 		JLabel lblmsgcourse = new JLabel("");
-		lblmsgcourse.setBounds(79, 97, 287, 14);
+		lblmsgcourse.setBounds(78, 97, 287, 14);
 		panelUppgift1.add(lblmsgcourse);
 
 		JLabel lblStudentsStudyingThis = new JLabel("Students studying this course");
@@ -613,15 +615,15 @@ public class GUI {
 		panelUppgift1.add(lblStudentsFinishedWith);
 
 		JLabel lblPercentWi = new JLabel("Percent with highest grade");
-		lblPercentWi.setBounds(79, 458, 159, 14);
+		lblPercentWi.setBounds(174, 458, 155, 14);
 		panelUppgift1.add(lblPercentWi);
 
 		JButton btnCourseWithHighest = new JButton("Course with highest passed quota  ");
-		btnCourseWithHighest.setBounds(32, 483, 239, 23);
+		btnCourseWithHighest.setBounds(33, 508, 239, 23);
 		panelUppgift1.add(btnCourseWithHighest);
 
 		JScrollPane scrollpanestudying = new JScrollPane();
-		scrollpanestudying.setBounds(11, 303, 169, 137);
+		scrollpanestudying.setBounds(11, 303, 168, 137);
 		panelUppgift1.add(scrollpanestudying);
 
 		tblstudying = new JTable(tablemodelstudying);
@@ -639,14 +641,14 @@ public class GUI {
 		panelUppgift1.add(lblMessage_1);
 
 		JScrollPane scrollcourse = new JScrollPane();
-		scrollcourse.setBounds(46, 188, 373, 61);
+		scrollcourse.setBounds(46, 188, 308, 61);
 		panelUppgift1.add(scrollcourse);
 
 		tablecourse = new JTable(tablemodelcourse);
 		scrollcourse.setViewportView(tablecourse);
 
 		JLabel lblpercent = new JLabel("");
-		lblpercent.setBounds(256, 458, 46, 14);
+		lblpercent.setBounds(337, 458, 69, 14);
 		panelUppgift1.add(lblpercent);
 
 		JLabel lblStudentName = new JLabel("Student Name");
@@ -658,7 +660,7 @@ public class GUI {
 		panelUppgift1.add(lblStudentAddress);
 
 		JLabel lblmsgstudent = new JLabel("");
-		lblmsgstudent.setBounds(513, 97, 144, 14);
+		lblmsgstudent.setBounds(527, 97, 144, 14);
 		panelUppgift1.add(lblmsgstudent);
 		JScrollPane scrollStudent = new JScrollPane();
 		scrollStudent.setBounds(459, 188, 286, 57);
@@ -760,7 +762,7 @@ public class GUI {
 		buttongroup.add(rdbtnregstudied);
 
 		JLabel lblGrade = new JLabel("");
-		lblGrade.setBounds(699, 396, 46, 14);
+		lblGrade.setBounds(699, 393, 46, 14);
 		panelUppgift1.add(lblGrade);
 
 		JLabel lblMessage_2 = new JLabel("Message:");
@@ -768,20 +770,59 @@ public class GUI {
 		panelUppgift1.add(lblMessage_2);
 
 		JLabel lblapplymsg = new JLabel("");
-		lblapplymsg.setBounds(537, 458, 158, 14);
+		lblapplymsg.setBounds(539, 458, 239, 14);
 		panelUppgift1.add(lblapplymsg);
 
 		JLabel lblThroughPut = new JLabel("");
-		lblThroughPut.setBounds(32, 542, 157, 14);
+		lblThroughPut.setBounds(92, 566, 157, 14);
 		panelUppgift1.add(lblThroughPut);
 
 		JLabel lblCourseCode = new JLabel("Course Code");
-		lblCourseCode.setBounds(32, 517, 97, 14);
+		lblCourseCode.setBounds(82, 541, 97, 14);
 		panelUppgift1.add(lblCourseCode);
 
 		JLabel lblPercent = new JLabel("Percent");
-		lblPercent.setBounds(139, 517, 65, 14);
+		lblPercent.setBounds(189, 542, 65, 14);
 		panelUppgift1.add(lblPercent);
+
+		JButton btnClearFieldsCourse = new JButton("Clear fields");
+		btnClearFieldsCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lblmsgcourse.setText("");
+				txtcCode.setText("");
+				txtcCredits.setText("");
+				txtcName.setText("");
+			}
+		});
+		btnClearFieldsCourse.setBounds(210, 154, 144, 23);
+		panelUppgift1.add(btnClearFieldsCourse);
+
+		JButton btnClearFieldsStudent = new JButton("Clear fields");
+		btnClearFieldsStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblmsgstudent.setText("");
+				txtspnr.setText("");
+				txtsname.setText("");
+				txtsaddress.setText("");
+			}
+		});
+		btnClearFieldsStudent.setBounds(615, 154, 130, 23);
+		panelUppgift1.add(btnClearFieldsStudent);
+		frame.getContentPane()
+				.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { btnRegisterCourse, tabbedPane,
+						panelUppgift1, cmbcourse, lblNewLabel, lblCourseName, lblCredits, btnSearchCourse,
+						btnDeleteCourse, lblmsgcourse, lblStudentsStudyingThis, lblStudentsFinishedWith, lblPercentWi,
+						btnCourseWithHighest, scrollpanestudying, txtcCode, tblstudying, txtcCredits,
+						scrollpanelfinished, txtcName, tblfinished, lblMessage_1, scrollcourse, tablecourse, lblpercent,
+						lblStudentName, lblStudentAddress, lblmsgstudent, scrollStudent, tabelstudent,
+						btnSearchStudentn, btnRegisterStudent, lblStudentPnr, btnDeleteStudent, txtsaddress, txtspnr,
+						txtsname, lblMessage, lblNewLabel_1, txtspnrreg, cmbgrade, rdbtnregstudent, lblSelectCourse,
+						rdbtnShowStudentsResult, rdbtnremovestudentfrcourse, lblFillInGrade, lblStudentsGrade, btnApply,
+						rdbtnregstudied, lblGrade, lblMessage_2, lblapplymsg, lblThroughPut, lblCourseCode, lblPercent,
+						panelUppgift2, cmbupp2, btnupp2, scrollPane_2, tbluppgift2, btnKeys, btnIndexes, btnConstraints,
+						btnMaxRows, cmbAllEmp, cmballTables, lblAllTablesIn, lblAllEmployeesColumn, btnSearchAllTables,
+						btnSearchAllEmp, panelUppgift3, cmbaccess, cmbexcel, btnaccess, btngetExcel, cmbAccessForm,
+						cmbExcelForms, btnOpenAccessForms, cmbWordForm, btnOpenWordForms, btnOpenExcelForms }));
 
 		rdbtnregstudied.addActionListener(new ActionListener() {
 
@@ -800,60 +841,126 @@ public class GUI {
 				String spnr = txtspnrreg.getText();
 				String sgrade = (String) cmbgrade.getSelectedItem();
 				String msg = "";
-				Studied studied = null;
+
+				lblapplymsg.setText("");
+				lblGrade.setText("");
 
 				if (rdbtnregstudent.isSelected()) {
 					int i = 0;
+					int j = 0;
 					try {
-
-						i = SharedView.registerStudentOnCourse(spnr, ccode);
+						for (Student s : StudentView.getAllStudents()) {
+							if (spnr.equals(s.getSpnr())) {
+								j = 1;
+							}
+						}
 					} catch (StudentExceptions e1) {
-						lblapplymsg.setText(Integer.toString(i));
+
 					}
-					lblapplymsg.setText(Integer.toString(i));
+					if (j == 1) {
+						try {
+
+							i = SharedView.registerStudentOnCourse(spnr, ccode);
+
+							if (i == 1) {
+								lblapplymsg.setText("Student registered on course");
+							} else if (i == 2) {
+								lblapplymsg.setText("Student already registered on course");
+							} else if (i == 0) {
+								lblapplymsg.setText("Student has too many credits");
+							}
+						} catch (StudentExceptions e1) {
+
+						}
+					} else {
+						lblapplymsg.setText("Couldn't find student");
+					}
 				}
+
 				if (rdbtnremovestudentfrcourse.isSelected()) {
+					int j = 0;
 					try {
-						SharedView.deleteStudyingFromCourse(spnr, ccode);
-						lblapplymsg.setText("Fixa (funka)");
-					} catch (StudentExceptions e6) {
-						lblapplymsg.setText("fixa, fungerade inte");
+						for (Studying s : SharedView.readAllStudentsOnCourse(ccode)) {
+							if (spnr.equals(s.getSpnr()) && ccode.equals(s.getcCode())) {
+								j = 1;
+
+							}
+						}
+					} catch (StudentExceptions e1) {
+					}
+					if (j == 1) {
+						try {
+							SharedView.deleteStudyingFromCourse(spnr, ccode);
+							lblapplymsg.setText("Student deleted from course");
+						} catch (StudentExceptions e6) {
+							lblapplymsg.setText("Something happend.");
+						}
+					} else {
+						lblapplymsg.setText("Couldn't find student on course");
 					}
 				}
 				if (rdbtnregstudied.isSelected()) {
-
+					int j = 0;
+					int k = 0;
 					try {
-						lblapplymsg.setText("Couldn't find Student");
 						for (Student s : StudentView.getAllStudents()) {
 							if (spnr.equals(s.getSpnr())) {
-								try {
-									SharedView.registerFinishedStudent(spnr, ccode, sgrade);
-									lblapplymsg.setText("Student Registerd");
-								} catch (StudentExceptions e6) {
-									lblapplymsg.setText("125etgs");
-								}
-
+								j = 1;
 							}
+						}
+						for (Studied s1 : SharedView.readAllFinishedStudents(ccode)) {
+							if (spnr.equals(s1.getsPnr())) {
+								k = 1;
+							}
+						}
 
+					} catch (StudentExceptions e1) {
+
+					}
+
+					if (j == 1 && k == 0) {
+						try {
+							SharedView.registerFinishedStudent(spnr, ccode, sgrade);
+							lblapplymsg.setText("Student Registered");
+							SharedView.deleteStudyingFromCourse(spnr, ccode);
+						} catch (StudentExceptions e6) {
+							lblapplymsg.setText("Something happened");
+						}
+					} else if (k == 1) {
+						lblapplymsg.setText("Student already registered on course");
+					} else {
+						lblapplymsg.setText("Couldn't find student");
+					}
+
+				}
+
+				if (rdbtnShowStudentsResult.isSelected()) {
+					int i = 0;
+					Studied studied1;
+					try {
+						for (Studied s1 : SharedView.readAllFinishedStudents(ccode)) {
+							if (spnr.equals(s1.getsPnr())) {
+								i = 1;
+							}
 						}
 					} catch (StudentExceptions e1) {
 
 					}
 
-				}
-				if (rdbtnShowStudentsResult.isSelected()) {
-					Studied studied1 = new Studied();
-					try {
-						studied1 = SharedView.readResult(spnr, ccode);
-						System.out.println(studied1.getsGrade());
-						if (studied1 != null) {
-							lblGrade.setText(studied1.getsGrade());
-						} else {
-							lblapplymsg.setText("Found no result");
+					if (i == 1) {
+						try {
+							studied1 = SharedView.readResult(spnr, ccode);
+
+							if (studied1 != null) {
+								lblGrade.setText(studied1.getsGrade());
+							}
+						} catch (StudentExceptions e7) {
+							lblapplymsg.setText(msg);
 						}
-					} catch (StudentExceptions e7) {
-						lblapplymsg.setText(msg);
+					} else {
+						lblapplymsg.setText("Found no result");
 					}
+
 				}
 
 			}
@@ -893,7 +1000,7 @@ public class GUI {
 		});
 		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				lblmsgstudent.setText("");
 				String msg = "";
 				int selRow = tabelstudent.getSelectedRow();
 				if (selRow != -1) {
@@ -918,6 +1025,7 @@ public class GUI {
 		btnRegisterStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				lblmsgstudent.setText("");
 				String spnr = txtspnr.getText();
 				String sname = txtsname.getText();
 				String saddress = txtsaddress.getText();
@@ -925,20 +1033,26 @@ public class GUI {
 				while (tablemodelstudents.getRowCount() > 0) {
 					tablemodelstudents.removeRow(0);
 				}
+				if (txtsname.getText().isEmpty() || txtspnr.getText().isEmpty() || txtspnr.getText().isEmpty()) {
+					lblmsgstudent.setText("Fill in fields");
+				} else {
+					try {
+						msg = StudentView.addStudent(spnr, sname, saddress);
+					} catch (StudentExceptions e1) {
+						msg = e1.getMessage();
+						lblmsgstudent.setText(msg);
+					}
 
-				try {
-					msg = StudentView.addStudent(spnr, sname, saddress);
-				} catch (StudentExceptions e1) {
-					msg = e1.getMessage();
 					lblmsgstudent.setText(msg);
-				}
 
-				lblmsgstudent.setText(msg);
+				}
 
 			}
 		});
 		btnSearchStudentn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				lblmsgstudent.setText("");
 				Student student = null;
 				String spnr = txtspnr.getText();
 				String sname = "";
@@ -988,6 +1102,7 @@ public class GUI {
 		});
 		btnDeleteCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblmsgcourse.setText("");
 				String msg = "";
 				int selRow = tablecourse.getSelectedRow();
 				if (selRow != -1) {
@@ -1017,6 +1132,8 @@ public class GUI {
 		});
 		btnSearchCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblmsgcourse.setText("");
+				
 				Course c = null;
 				String ccode = txtcCode.getText();
 				String cname;
@@ -1098,24 +1215,33 @@ public class GUI {
 		});
 		btnRegisterCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblmsgcourse.setText("");
 
 				String ccode = txtcCode.getText();
 				String cname = txtcName.getText();
 				String creditsString = txtcCredits.getText();
-				int credits = Integer.parseInt(creditsString);
+
 				String msg = "";
 				while (tablemodelcourse.getRowCount() > 0) {
 					tablemodelcourse.removeRow(0);
 				}
-				try {
-					msg = CourseView.addCourse(ccode, cname, credits);
-				} catch (CourseExceptions e4) {
-					msg = e4.getMessage();
+
+				if (txtcCode.getText().isEmpty() || txtcName.getText().isEmpty() || creditsString.isEmpty()) {
+					lblmsgcourse.setText("Fill in fields");
+				} else {
+					int credits = Integer.parseInt(creditsString);
+					try {
+						msg = CourseView.addCourse(ccode, cname, credits);
+					} catch (CourseExceptions e4) {
+						msg = e4.getMessage();
+						lblmsgcourse.setText(msg);
+					}
 					lblmsgcourse.setText(msg);
+
 				}
-				lblmsgcourse.setText(msg);
 
 			}
+
 		});
 
 	}
