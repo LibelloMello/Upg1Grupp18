@@ -179,7 +179,6 @@ public class CourseAccess {
 				}
 			}
 		}
-
 	}
 
 	public static String getStudentFlow() throws CourseExceptions {
@@ -200,9 +199,31 @@ public class CourseAccess {
 			ccode = rs.getString(1);
 			percent = rs.getString(2);
 			result = (ccode + "	     " + "	                           	 " + percent + "%");
+			return result;
 		} catch (SQLException e) {
 			throw new CourseExceptions("Couldn't find a course", e);
+				
+		} finally {
+	if (rs != null) {
+		try {
+			rs.close();
+		} catch (SQLException e) {
 		}
-		return result;
+	}
+
+	if (preState != null) {
+		try {
+			preState.close();
+		} catch (SQLException e) {
+		}
+	}
+
+	if (con != null) {
+		try {
+			preState.close();
+		} catch (SQLException e) {
+		}
+	}
+}
 	}
 }

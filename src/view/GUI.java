@@ -613,7 +613,7 @@ public class GUI {
 		lblStudentsFinishedWith.setBounds(210, 278, 196, 14);
 		panelUppgift1.add(lblStudentsFinishedWith);
 
-		JLabel lblPercentWi = new JLabel("Percent with highest grade");
+		JLabel lblPercentWi = new JLabel("Percent with grade A");
 		lblPercentWi.setBounds(174, 458, 155, 14);
 		panelUppgift1.add(lblPercentWi);
 

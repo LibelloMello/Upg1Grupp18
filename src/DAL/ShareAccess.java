@@ -317,18 +317,19 @@ public class ShareAccess {
 		}
 
 	}
-
+//Kan inte fixa finally, felmeddelandet fuckar loss
+	
 	public static ResultSet getStudentStudying(String spnr) throws SQLException {
 		Connection con = null;
 		PreparedStatement preState = null;
 		ResultSet rs = null;
-		con = DbUtil.getConn();
 
+		con = DbUtil.getConn();
 		preState = con.prepareStatement(DbUtil.getStudentStudying(spnr));
 		preState.setString(1, spnr);
 		return preState.executeQuery();
-	}
 	
+	}
 	public static String getStudentsCourses(String sPnr) throws StudentExceptions {
 
 		Connection con = null;
@@ -374,7 +375,7 @@ public class ShareAccess {
 		ResultSet rs = getStudentStudying(pnr);
 		while (rs.next()) {
 			if (rs.getString(2).equals(ccode)) {
-				error = "Studenten läser redan denna kurs.";
+	
 				return true;
 			}
 		}
@@ -387,8 +388,7 @@ public class ShareAccess {
 		ResultSet rs = null;
 		con = DbUtil.getConn();
 
-		preState = con.prepareStatement(
-				"SELECT cname AS Kursnamn, c.ccode AS Kurskod, grade AS Betyg FROM Studied s, Course c WHERE s.ccode = c.ccode AND spnr = ?");
+		preState = con.prepareStatement(DbUtil.getStudentStudied());
 		preState.setString(1, pnr);
 		return preState.executeQuery();
 	}
@@ -402,7 +402,7 @@ public class ShareAccess {
 		rs = getStudentStudied(pnr);
 		while (rs.next()) {
 			if (rs.getString(2).equals(ccode)) {
-				error = "Studenten har redan läst denna kurs.";
+			
 				return true;
 			}
 		}
@@ -415,8 +415,8 @@ public class ShareAccess {
 		ResultSet rs = null;
 		try {
 			con = DbUtil.getConn();
-			preState = con.prepareStatement(
-					"SELECT SUM(credits) FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ? GROUP BY spnr UNION SELECT credits FROM Course c WHERE ccode = ?");
+			//Kan inte byta ut mot ett preparedstatement i DbUtil då felmeddelandet slutar fungera. Vaffö? Fixat?
+			preState = con.prepareStatement(DbUtil.checkIfMaxCredits());
 			preState.setString(1, spnr);
 			preState.setString(2, ccode);
 			rs = preState.executeQuery();
@@ -428,10 +428,10 @@ public class ShareAccess {
 			}
 
 			if (totalPoints > 45.0) {
-				error = "A student may not read more than 45HP";
+
 				return 0;
 			} else if (!studentIsActive(spnr, ccode) && !studentHasGrade(spnr, ccode)) {
-				PreparedStatement ps = con.prepareStatement("INSERT INTO Studying VALUES(?, ?)");
+				PreparedStatement ps = con.prepareStatement(DbUtil.registerStudentOnCourse());
 				ps.setString(1, spnr);
 				ps.setString(2, ccode);
 				return ps.executeUpdate();

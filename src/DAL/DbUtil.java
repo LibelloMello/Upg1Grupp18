@@ -82,6 +82,20 @@ public class DbUtil {
 	public static String checkIfFortyFive(String sPnr) {
 		return "SELECT sum(credits) FROM Course WHERE ccode IN (SELECT ccode FROM Studying WHERE spnr = ?)";
 	}
+	/*
+	 public static String getStandardMetadata() { 
+		 return "SELECT * FROM [" + tablename + "]"; }
+	 */
+	public static String checkIfMaxCredits() {
+		return "SELECT SUM(credits) FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ? GROUP BY spnr UNION SELECT credits FROM Course c WHERE ccode = ?";
+	}
+
+	
+
+	public static String getStudentStudied() {
+		return "SELECT cname AS Kursnamn, c.ccode "
+				+ "AS Kurskod, grade AS Betyg FROM Studied s, Course c WHERE s.ccode = c.ccode AND spnr = ?";
+	}
 
 	public static Course mapCourse(ResultSet rs) throws SQLException {
 		Course course = new Course();
