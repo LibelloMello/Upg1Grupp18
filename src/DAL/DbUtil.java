@@ -82,15 +82,14 @@ public class DbUtil {
 	public static String checkIfFortyFive(String sPnr) {
 		return "SELECT sum(credits) FROM Course WHERE ccode IN (SELECT ccode FROM Studying WHERE spnr = ?)";
 	}
+
 	/*
-	 public static String getStandardMetadata() { 
-		 return "SELECT * FROM [" + tablename + "]"; }
+	 * public static String getStandardMetadata() { return "SELECT * FROM [" +
+	 * tablename + "]"; }
 	 */
 	public static String checkIfMaxCredits() {
 		return "SELECT SUM(credits) FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ? GROUP BY spnr UNION SELECT credits FROM Course c WHERE ccode = ?";
 	}
-
-	
 
 	public static String getStudentStudied() {
 		return "SELECT cname AS Kursnamn, c.ccode "
@@ -105,12 +104,15 @@ public class DbUtil {
 
 		return course;
 	}
+
 	public static String getStudentStudying(String spnr) {
 		return "SELECT cname AS Kursnamn, c.ccode AS Coursecode, credits AS Credits FROM Studying s, Course c WHERE s.ccode = c.ccode AND spnr = ?";
 	}
+
 	public static String throughPut(String ccode) throws SQLException {
 		return "SELECT TOP 1 ccode, (SUM(CASE WHEN grade != 'U' THEN 1 ELSE 0 END)) * 100 / (SUM(CASE WHEN grade LIKE '_' THEN 1 ELSE 0 END)) AS 'Percentage' FROM Studied s GROUP BY s.ccode ORDER BY Percentage DESC";
 	}
+
 	public static String getStudentsCourses(String sPnr) throws SQLException {
 		return "SELECT c.ccode, s.credits FROM studying s, Course c WHERE spnr = ?";
 	}
@@ -183,6 +185,5 @@ public class DbUtil {
 		}
 		return studyingList;
 	}
-	
 
 }
