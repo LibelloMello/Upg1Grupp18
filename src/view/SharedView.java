@@ -81,5 +81,25 @@ public class SharedView {
 
 		}
 	}
+	public static List<Studying> readAllStudentsStudying() throws StudentExceptions {
+		List<Studying> list = null;
+		try {
+			list = SharedController.ReadAllStudentsInStudying();
+		}catch (StudentExceptions e) {
+			
+		}
+		return list;
+	}
+
+	public static List<Studied> readAllStudentsInStudieds() throws StudentExceptions {
+		List<Studied> list = null;
+		try {
+			list = SharedController.ReadAllStudentsInStudied();
+		}catch (StudentExceptions e) {
+			
+		}
+		return list;
+	}
+
 
 }

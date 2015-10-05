@@ -38,5 +38,12 @@ public class SharedController {
 	public static void registerFinishedStudent(String spnr, String ccode, String grade) throws StudentExceptions {
 		ShareAccess.registerStudied(spnr, ccode, grade);
 	}
+	public static List<Studying> ReadAllStudentsInStudying() throws StudentExceptions {
+		return ShareAccess.getAllStudentsInStudying();
+	}
+
+public static List<Studied> ReadAllStudentsInStudied() throws StudentExceptions {
+		return ShareAccess.getAllStudentsInStudied();
+	}
 
 }

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import exceptions.CourseExceptions;
 import exceptions.StudentExceptions;
 import model.Student;
 import model.Studied;
@@ -424,10 +426,14 @@ public class ShareAccess {
 			int newCredits = 0;
 			while (rs.next()) {
 				totalPoints += rs.getInt(1);
-
 			}
-
-			if (totalPoints > 45.0) {
+			try {
+				newCredits = CourseAccess.getCourse(ccode).getCredits();
+			} catch (CourseExceptions e) {
+				e.printStackTrace();
+			}
+		
+			if (totalPoints > 45) {
 
 				return 0;
 			} else if (!studentIsActive(spnr, ccode) && !studentHasGrade(spnr, ccode)) {
@@ -439,6 +445,84 @@ public class ShareAccess {
 				return 2; 
 		} catch (SQLException e) {
 			throw new StudentExceptions("Student not found");
+		}
+	}
+	public static List<Studying> getAllStudentsInStudying() throws StudentExceptions {
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(DbUtil.getAllStudentsInStudying());
+			rs = preState.executeQuery();
+
+			return DbUtil.mapStudyings(rs);
+
+		} catch (SQLException e) {
+			throw new StudentExceptions("Found no students", e);
+
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (preState != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (con != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+	}
+	public static List<Studied> getAllStudentsInStudied() throws StudentExceptions {
+		Connection con = null;
+		PreparedStatement preState = null;
+		ResultSet rs = null;
+
+		try {
+			con = DbUtil.getConn();
+			preState = con.prepareStatement(DbUtil.getAllStudentsInStudied());
+			rs = preState.executeQuery();
+
+			return DbUtil.mapStudieds(rs);
+
+		} catch (SQLException e) {
+			throw new StudentExceptions("Found no students", e);
+
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (preState != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (con != null) {
+				try {
+					preState.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 	}
 

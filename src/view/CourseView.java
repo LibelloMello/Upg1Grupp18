@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import controller.CourseController;
 import controller.StudentController;
 import exceptions.CourseExceptions;
@@ -66,5 +68,14 @@ public class CourseView {
 			msg = "Couldn't find a course";
 		}
 		return msg;
+	}
+	public static List<Course> getAllCourses() throws CourseExceptions {
+		List<Course> list = null;
+		try {
+			list = CourseController.ReadAllCourses();
+		} catch (CourseExceptions e) {
+			
+		}
+		return list;
 	}
 }

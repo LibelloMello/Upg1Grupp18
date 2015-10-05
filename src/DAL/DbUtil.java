@@ -82,6 +82,14 @@ public class DbUtil {
 	public static String checkIfFortyFive(String sPnr) {
 		return "SELECT sum(credits) FROM Course WHERE ccode IN (SELECT ccode FROM Studying WHERE spnr = ?)";
 	}
+	public static String getAllStudentsInStudying() {
+		return "Select * FROM Studying";
+	}
+
+public static String getAllStudentsInStudied() {
+		return "SELECT * FROM Studied";
+	}
+
 
 	/*
 	 * public static String getStandardMetadata() { return "SELECT * FROM [" +
